@@ -3,7 +3,7 @@
 __Auther__ = 'M4x'
 
 from time import sleep
-from math import radians, cos, sin, fabs
+from math import radians, cos, sin, fabs, floor, ceil
 import numpy as np
 import cv2
 import pdb
@@ -11,7 +11,8 @@ import pdb
 class Picture(object):
     def __init__(self, file):
         self.img = cv2.imread(file)
-        self.H, self.W, self._ = self.img.shape
+        #  print self.img.shape
+        self.H, self.W, self.CH = self.img.shape
         print "At first, the original image."
         self.show_img("Original_Image.jpg", self.img)
 
@@ -52,9 +53,69 @@ class Picture(object):
         self.show_img("Translation_Image_black.jpg", res2)
         self.show_img("Translation_Image_white.jpg", res3)
                 
-    #  def Resize(self, nx, ny):
+    def Resize(self, nx, ny):
+        if 0 < nx <= 1 and 0 < ny <= 1:
+            rw = int(self.W * ny)
+            rh = int(self.H * nx)
 
+            res1 = np.zeros((rh, rw, self.CH), np.uint8)
+            res2 = np.zeros((rh, rw, self.CH), np.uint8)
+            #  print res.shape
+            for y in xrange(rh):
+                for x in xrange(rw):
+                    res1[y, x] = self.img[int(y / ny), int(x / nx)]
 
+                    #fill every point with the average of the matrix
+                    y1 = int(y / ny)
+                    y2 = int((y + 1) / ny)
+                    x1 = int(x / nx)
+                    x2 = int((x + 1) / nx)
+
+                    ave = [0x0, 0x0, 0x0]
+                    for j in xrange(y1, y2):
+                        for i in xrange(x1, x2):
+                            for k in xrange(3):
+                                ave[k] += self.img[j, i][k]
+
+                    num = (x2 - x1) * (y2 - y1)
+                    for k in xrange(3):
+                        ave[k] /= num
+
+                    res2[y, x] = ave
+
+            print "Next is the shrinked image."
+            self.show_img("Shrinked_Image.jpg", res1)
+            self.show_img("Better_Shrinked_Image.jpg", res2)
+
+        elif nx > 1 and ny > 1:
+            rw = int(self.W * ny - ny)
+            rh = int(self.H * nx - nx)
+
+            res1 = np.zeros((rh, rw, self.CH), np.uint8)
+            res2 = np.zeros((rh, rw, self.CH), np.uint8)
+            #  print res.shape
+            for i in xrange(rh):
+                for j in xrange(rw):
+                    res1[i, j] = self.img[int(i / nx), int(j / ny)]
+
+                    #The following will cost a long time
+                    x1 = int((i + 1) / nx - 1)
+                    y1 = int((j + 1) / ny - 1)
+                    p = float(i) / nx - x1
+                    q = float(j) / ny - y1
+
+                    ave = [0x0, 0x0, 0x0]
+                    for k in xrange(3):
+                        ave[k] = int(self.img[x1, y1][k] * (1 - q) * (1 - p) + self.img[x1 + 1, y1][k] * p * (1 - q) + self.img[x1, y1 + 1][k] * (1 - p) * q + self.img[x1 + 1, y1 + 1][k] * p * q)
+
+                    res2[i, j] = ave
+            
+            else:
+                print "Error resize paremeters!"
+
+            print "Next is the zoomed image."
+            self.show_img("Zoomed_Image.jpg", res1)
+            self.show_img("Better_Zoomed_Image.jpg", res2)
 
 
     def Rotation(self, deg):
@@ -91,9 +152,31 @@ class Picture(object):
                     res2[x, y] = (0xff, 0xff, 0xff)#fill the blank with white point
 
         print "Next is the rotated image."
-        self.show_img("Rotation_Image_black.jpg", res1)
-        self.show_img("Rotation_Image_white.jpg", res2)
+        self.show_img("Rotation_Image_Black.jpg", res1)
+        self.show_img("Rotation_Image_White.jpg", res2) 
 
-img = Picture("./test.jpg")
-img.Translation(10, 40)
-img.Rotation(45)
+    def Deviation(self, nx, ny):
+        dw = int(self.H * float(nx) + self.W)
+        dh = int(self.W + float(ny) * self.H)
+        res1 = np.zeros((dh, dw, self.CH), np.uint8)
+        res2 = np.zeros((dh, dw, self.CH), np.uint8)
+        #  print res.shape
+
+        for y in xrange(dh):
+            for x in xrange(dw):
+                ox = int(x - nx * y)
+                oy = int(y - ny * x)
+                if 0 <= ox < self.W and 0 <= oy < self.H:
+                    res1[y, x] = self.img[oy, ox]
+                    res2[y, x] = self.img[oy, ox]
+                else:
+                    res1[y, x] = (0x0, 0x0, 0x0)#black point
+                    res2[y, x] = (0xff, 0xff, 0xff)#white point
+
+        print "Next is the deviated image."
+        self.show_img("Deviated_Image_Black.jpg", res1)
+        self.show_img("Deviated_Image_White.jpg", res2)
+
+
+if __name__ == "__main__":
+    img = Picture("./test.jpg")
