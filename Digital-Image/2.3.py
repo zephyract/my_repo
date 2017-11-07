@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 __Auther__ = 'M4x'
 
-from time import sleep
-from math import radians, cos, sin, fabs, floor, ceil
+from math import radians, cos, sin, fabs
 import numpy as np
 import cv2
 import pdb
@@ -18,7 +17,6 @@ class Picture(object):
 
     def show_img(self, name, img):
         print "Press s to save this picture or others to exit.\n"
-        #  sleep(0.5)
 
         cv2.imshow(name, img)
         key = (cv2.waitKey(0) & 0xff)
@@ -29,11 +27,8 @@ class Picture(object):
         cv2.destroyAllWindows()
 
     def Translation(self, delta_x, delta_y):
-        #  res1 = self.img.copy()
         res1 = np.zeros(self.img.shape, np.uint8)
-        #  res2 = self.img.copy()
         res2 = np.zeros(self.img.shape, np.uint8)
-        #  res3 = self.img.copy()
         res3 = np.zeros(self.img.shape, np.uint8)
 
         #From result to original
@@ -119,27 +114,34 @@ class Picture(object):
 
 
     def Rotation(self, deg):
-        #  res1 = self.img.copy()
-        res1 = np.zeros(self.img.shape, np.uint8)
-        #  res2 = self.img.copy()
-        res2 = np.zeros(self.img.shape, np.uint8)
-
         deg = radians(deg)#Convert redians to degrees
         C = cos(deg)
         S = sin(deg)
-        A = -0.5 * self.W * C + 0.5 * self.H * S + 0.5 * self.W
-        B = -0.5 * self.W * S - 0.5 * self.H * C + 0.5 * self.H
 
-        #x1 = x0 * cos(a) - y0 * sin(a) - 0.5Ncos(a) + 0.5Msin(a) + 0.5N
-        #y1 = x0 * sin(a) + y0 * cos(a) - 0.5Nsin(a) - 0.5Mcos(a) + 0.5M 
+        X1 = int(fabs(0.5 * self.H * C + 0.5 * self.W * S))
+        X2 = int(fabs(0.5 * self.H * C - 0.5 * self.W * S))
+        Y1 = int(fabs(-0.5 * self.H * S + 0.5 * self.W * C))
+        Y2 = int(fabs(-0.5 * self.H * S - 0.5 * self.W * C))
+        H = int(2 * max(Y1,Y2))
+        W = int(2 * max(X1,X2))
+
+        A = -0.5 * self.W * C + 0.5 * self.H * S + 0.5 * W
+        B = -0.5 * self.W * S - 0.5 * self.H * C + 0.5 * H
+
+        size = (H, W, self.CH)
+        res1 = np.zeros(size, np.uint8)
+        res2 = np.zeros(size, np.uint8)
+
+        #x1 = x0 * C - y0 * S - 0.5NC + 0.5MS + 0.5N'
+        #y1 = x0 * S + y0 * C - 0.5NS - 0.5MC + 0.5M' 
         #x0 = (Cx - AC + Sy - BS) / (CC + CS)
         #y0 = (Cy - BC - Sx + AS) / (SS + CC)
 
         trans_x = lambda x, y: (C * x - A * C + S * y - B * S) / (C * C + C * S)
         trans_y = lambda x, y: (C * y - B * C - S * x + A * S) / (S * S + C * C)
 
-        for x in xrange(self.W):
-            for y in xrange(self.H):
+        for x in xrange(W):
+            for y in xrange(H):
                 tx = int(trans_x(x, y))
                 ty = int(trans_y(x, y))
                 #  print trans_x(x, y), type(trans_x(x, y))
@@ -180,3 +182,4 @@ class Picture(object):
 
 if __name__ == "__main__":
     img = Picture("./test.jpg")
+    img.Rotation(45)
