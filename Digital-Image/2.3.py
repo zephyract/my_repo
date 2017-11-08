@@ -52,30 +52,31 @@ class Picture(object):
         if 0 < nx <= 1 and 0 < ny <= 1:
             rw = int(self.W * ny)
             rh = int(self.H * nx)
+            #  print rh, rw
 
             res1 = np.zeros((rh, rw, self.CH), np.uint8)
             res2 = np.zeros((rh, rw, self.CH), np.uint8)
             #  print res.shape
             for y in xrange(rh):
                 for x in xrange(rw):
-                    res1[y, x] = self.img[int(y / ny), int(x / nx)]
+                    res1[y, x] = self.img[int(y / nx), int(x / ny)]
 
-                    #fill every point with the average of the matrix
-                    y1 = int(y / ny)
-                    y2 = int((y + 1) / ny)
-                    x1 = int(x / nx)
-                    x2 = int((x + 1) / nx)
-
+                    #  fill every point with the average of the matrix
+                    y1 = int(y / nx)
+                    y2 = int((y + 1) / nx)
+                    x1 = int(x / ny)
+                    x2 = int((x + 1) / ny)
+    
                     ave = [0x0, 0x0, 0x0]
                     for j in xrange(y1, y2):
                         for i in xrange(x1, x2):
                             for k in xrange(3):
                                 ave[k] += self.img[j, i][k]
-
+    
                     num = (x2 - x1) * (y2 - y1)
                     for k in xrange(3):
                         ave[k] /= num
-
+    
                     res2[y, x] = ave
 
             print "Next is the shrinked image."
@@ -182,4 +183,10 @@ class Picture(object):
 
 if __name__ == "__main__":
     img = Picture("./test.jpg")
-    img.Rotation(45)
+    #  img.Translation(50, 70)
+    #  img.Resize(0.5, 0.7)
+    #  img.Resize(1.5, 1.7)
+    #  img.Rotation(45)
+    img.Deviation(0, 0.5)
+    img.Deviation(0.5, 0)
+    img.Deviation(0.5, 0.5)
