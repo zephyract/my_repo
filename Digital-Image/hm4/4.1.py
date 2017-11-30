@@ -4,6 +4,7 @@ __Auther__ = 'M4x'
 
 import cv2
 import numpy as np
+from pprint import pprint
 import pdb
 
 class Image(object):
@@ -27,27 +28,52 @@ class Image(object):
         return np.fft.ifft2(np.fft.ifftshift(img))
 
     def highPass(self):
-        mask = np.ones(self.img.shape, np.uint8)
+        mask = np.ones(self.img.shape)
         mask[self.H / 2 - 30: self.H / 2 + 30, self.W / 2 - 30: self.W / 2 + 30] = 0
+        pprint(mask)
         return mask
 
     def lowPass(self):
-        mask = np.zeros(self.img.shape, np.uint8).astype(float64)
-        mask[self.H / 2 - 30: self.H / 2 + 30, self.W / 2 - 30: self.W / 2 + 30] = 1
+        mask = np.ones(self.img.shape)
+        mask[self.H / 2 - 30: self.H / 2 + 30, self.W / 2 - 30: self.W / 2 + 30] = 0
+        #  pprint(mask)
+        mask = 1 - mask
+        return mask
+
+    def gaussLowPass(self, D):
+        center = (self.H // 2, self.W // 2)
+        mask = np.empty(self.img.shape)
+        for u in xrange(self.H):
+            for v in xrange(self.W):
+                #  pdb.set_trace()
+                duv = np.sqrt(pow((u - center[0]), 2) + pow((v - center[1]), 2))
+                mask[u][v] = pow(np.e, -(pow(duv, 2) / pow(D, 2)))
+
+        #  pprint(mask)
+        return mask
+
+    def gaussHighPass(self, D):
+        center = (self.H // 2, self.W // 2)
+        mask = np.empty(self.img.shape)
+        for u in xrange(self.H):
+            for v in xrange(self.W):
+                duv = np.sqrt(pow((u - center[0]), 2) + pow((v - center[1]), 2))
+                mask[u][v] = 1 - pow(np.e, -(pow(duv, 2) / pow(D, 2)))
+
+        #  pprint(mask)
+        return mask
+
 
     def butterWorth(self, D, n):
-        INF = 0xffffff
-        mask = np.ones(self.img.shape, np.uint8)
-        r = lambda x, y: np.sqrt(pow(x - self.W / 2, 2) + pow(y - self.H / 2, 2))
-        for x in xrange(self.H):
-            for y in xrange(self.W):
-                #  pdb.set_trace()
-                t = r(x, y) / (D * D)
-                mask[x, y] = INF / (pow(t, n) + 1)
+        center = (self.H // 2, self.W // 2)
+        mask = np.empty(self.img.shape)
+        for u in xrange(self.H):
+            for v in xrange(self.W):
+                duv = np.sqrt(pow((u - center[0]), 2) + pow((v - center[1]), 2))
+                mask[u][v] = 1 / pow((1 + (duv / D)), 2 * n)
 
-        #  pdb.set_trace()
-        print mask.astype(np.uint8)
-        return mask.astype(np.uint8)
+        #  pprint(mask)
+        return mask
 
     def frequencyFilter(self, method, D = 0.5, n = 1):
         #  pdb.set_trace()
@@ -57,6 +83,13 @@ class Image(object):
             mask = self.highPass()
         elif method.lower() == "butterworth":
             mask = self.butterWorth(D, n)
+        elif method.lower() == "gausslowpass":
+            mask = self.gaussLowPass(100)
+        elif method.lower() == "gausshighpass":
+            mask = self.gaussHighPass(100)
+        else:
+            print "[!]method error!"
+            exit(0)
 
         out = self.fft(self.img) * mask
         res = self.ifft(out)
@@ -69,10 +102,27 @@ class Image(object):
             self.showImage("LowPass_filter.jpeg", res)
         elif method.lower() == "butterworth":
             self.showImage("butterWorth.jpeg", res)
+        elif method.lower() == "gausslowpass":
+            self.showImage("GaussLowPass.jpeg", res)
+        elif method.lower() == "gausshighpass":
+            self.showImage("gaussHighPass.jpeg", res)
 
+    def spaceFilter(self):
+        mask = np.array([[1, 2, 1], [2, 4, 2], [1, 2, 1]])
+        res = np.zeros(self.img.shape, np.uint8)
+
+        for x in xrange(self.H - 2):
+            for y in xrange(self.W - 2):
+                mat = self.img[x: x + 3, y: y + 3]
+                res[x, y] = np.abs(np.sum(mat * mask / 16))
+
+        self.showImage("spaceFilter.jpeg", res)
 
 if __name__ == "__main__":
     img = Image("./messi.jpeg")
     #  img.frequencyFilter("highpass")
     #  img.frequencyFilter("lowpass")
-    img.frequencyFilter("butterWorth", 0.5, 1)
+    #  img.frequencyFilter("gaussLowPass", 100)
+    #  img.frequencyFilter("gaussHighPass", 50)
+    #  img.frequencyFilter("butterWorth", 100, 2)
+    img.spaceFilter()
