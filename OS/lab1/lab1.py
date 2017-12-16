@@ -16,6 +16,7 @@ class Threads(object):
                 break
             d = {}
             d["id"], d["st"], d["runtime"], d["priority"], d["time"] = [int(i.strip()) for i in line.split(r"/")]
+            d["used"] = False
             #  print d
             self.T.append(d)
 
@@ -35,19 +36,29 @@ class Threads(object):
             print "%d/%d/%d/%d/%d" % (i["seq"], i["id"], i["st"], i["ed"], i["priority"])
 
     def FCFS(self):
-        inThread = sorted(self.T, key = lambda x: x["st"])
-        #  pprint(inThread)
-        self.getAns(inThread)
+        outThread = sorted(self.T, key = lambda x: x["st"])
+        #  pprint(outThread)
+        self.getAns(outThread)
 
-    def SJF(self):
-        inThread = sorted(self.T, key = lambda x: (x["st"], x["runtime"]))
-        pprint(inThread)
+    def SPF(self):
+        inThread = sorted(self.T, key = lambda x: x["runtime"])
+        time = 0
+        outThread = []
+        for i in xrange(len(self.T)):
+            #  pprint(inThread)
+            #  print ""
+            for j in inThread:
+                if j["st"] <= time and not j["used"]:
+                    time += j["runtime"]
+                    j["used"] = True
+                    outThread.append(j)
+                    break
+
         #  pdb.set_trace()
-        self.getAns(inThread)
-
+        self.getAns(outThread)
 
 if __name__ == "__main__":
     test = Threads()
-    method = (test.FCFS, test.SJF)
+    method = (test.FCFS, test.SPF)
     #  pdb.set_trace()
     method[test.method - 1]()
