@@ -53,12 +53,14 @@ class Threads(object):
                     j["used"] = True
                     outThread.append(j)
                     break
-
         #  pdb.set_trace()
         self.getAns(outThread)
 
+    def SRF(self):
+
+
 if __name__ == "__main__":
-    test = Threads()
-    method = (test.FCFS, test.SPF)
+    lab1 = Threads()
+    method = (lab1.FCFS, lab1.SPF, lab1.SRF)
     #  pdb.set_trace()
-    method[test.method - 1]()
+    method[lab1.method - 1]()
