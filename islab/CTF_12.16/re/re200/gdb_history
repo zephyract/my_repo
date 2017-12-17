@@ -1,0 +1,4 @@
+disassemble main
+disassemble check
+b *check+112
+r
