@@ -12,7 +12,7 @@ class Threads(object):
         self.T = []
         while True:
             line = stdin.readline()
-            if line == "" or line == "exit\n":
+            if line == "" or line == "\n":
                 break
             d = {}
             d["id"], d["st"], d["runtime"], d["priority"], d["time"] = [int(i.strip()) for i in line.split(r"/")]
@@ -57,6 +57,15 @@ class Threads(object):
         self.getAns(outThread)
 
     def SRF(self):
+        inThread = sorted(self.T, key = lambda x: x["st"])
+        for i in inThread:
+            i["remain"] = i["runtime"]
+
+        timeTable = [i["st"] for i in inThread]
+        timeTable.append(sum([i["runtime"] for i in inThread]))
+        pprint(inThread)
+        print timeTable
+
 
 
 if __name__ == "__main__":
