@@ -17,7 +17,7 @@ class Threads(object):
             if line == "" or line == "\n":
                 break
             d = {}
-            d["id"], d["st"], d["runtime"], d["priority"], d["time"] = [int(i.strip()) for i in line.split(r"/")]
+            d["id"], d["st"], d["runtime"], d["priority"], d["timeslice"] = [int(i.strip()) for i in line.split(r"/")]
             d["used"] = False
             #  print d
             self.T.append(d)
@@ -100,8 +100,70 @@ class Threads(object):
         #  pprint(outThread)
         self.getAns(outThread)
 
+    def RR(self):
+        inThread = sorted(self.T, key = lambda x: x["st"])
+        for i in inThread:
+            i["remain"] = i["runtime"]
+
+        timeTable = []
+        timeSlice = inThread[0]["timeslice"]
+        ii = 0
+        T = sum([i["runtime"] for i in inThread])
+        while True:
+            timeTable.append(timeSlice * ii)
+            ii += 1
+            if timeTable[-1] >= T:
+                timeTable = timeTable[: -1]
+                break
+
+        #  print "flag"
+        timeTable.append(T)
+        #  pprint(timeTable)
+        cnt = inThread[-1]["id"]
+
+        idx = 0
+        id = 0#id + 1为pid
+        outThread = []
+        while True:
+            t = timeTable[idx]
+            if t == timeTable[-1]:
+                #  pdb.set_trace()
+                break
+            if len(outThread) >= 10:
+                break
+
+            #  print "flag"
+            #  self.getAns(outThread)
+            inThread = sorted(inThread, key = lambda x: x["st"])
+            while True:
+                if inThread[id]["remain"] and inThread[id]["st"] <= t:
+                    break
+                id = (id + 1) % cnt
+
+            if inThread[id]["remain"] and inThread[id]["st"] <= t:
+                tmp = deepcopy(inThread[id])
+                tmp["st"] = t
+                if inThread[id]["remain"] >= timeSlice:
+                    tmp["runtime"] = timeSlice
+                    inThread[id]["remain"] -= timeSlice
+                    outThread.append(tmp)
+                else:
+                    tmp["runtime"] = tmp["remain"]
+                    inThread[id]["remain"] = 0
+                    outThread.append(tmp)
+                    timeTable = timeTable[: idx + 1] + [timeTable[idx] + tmp["runtime"]] + timeTable[idx + 1:]
+            
+                #  if idx == 6:
+                    #  pdb.set_trace()
+                id = (id + 1) % cnt
+                idx += 1
+
+        #  pprint(outThread)
+        self.getAns(outThread)
+
+
 if __name__ == "__main__":
     lab1 = Threads()
-    method = (lab1.FCFS, lab1.SPF, lab1.SRF)
+    method = (lab1.FCFS, lab1.SPF, lab1.SRF, lab1.RR)
     #  pdb.set_trace()
     method[lab1.method - 1]()
