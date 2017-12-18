@@ -4,6 +4,8 @@ __Auther__ = 'M4x'
 
 from sys import stdin
 from pprint import pprint
+from time import sleep
+from copy import deepcopy
 import pdb
 
 class Threads(object):
@@ -63,10 +65,40 @@ class Threads(object):
 
         timeTable = [i["st"] for i in inThread]
         timeTable.append(sum([i["runtime"] for i in inThread]))
-        pprint(inThread)
-        print timeTable
+        timeTable.append(sum([i["runtime"] for i in inThread]))#多加一次总时间方便处理
 
+        outThread = []
+        idx = 0
+        while True:
+            t = timeTable[idx]
+            if t == timeTable[-1]:
+                break
 
+            inThread = sorted(inThread, key = lambda x: x["remain"])
+            for i in inThread:
+                #  pdb.set_trace()
+                if i["remain"] and i["st"] <= t:
+                    #bug: 出现相同键值对完全相同的字典时,修改对所有字典起作用
+                    #python的引用: http://www.cnblogs.com/Xjng/p/3829368.html
+                    tmp = deepcopy(i)
+                    tmp["st"] = t
+                    if (timeTable[idx + 1] - t) <= i["remain"]:
+                        tmp["runtime"] = (timeTable[idx + 1] - t)
+                        i["remain"] -= (timeTable[idx + 1] - t)
+                        outThread.append(tmp)
+                        #  pdb.set_trace()
+                    else:
+                        tmp["runtime"] = tmp["remain"]
+                        i["remain"] = 0
+                        outThread.append(tmp)
+                        timeTable = timeTable[: idx + 1] + [timeTable[idx] + tmp["runtime"]] + timeTable[idx + 1:]
+                        #  pdb.set_trace()
+
+                    idx += 1
+                    break
+        
+        #  pprint(outThread)
+        self.getAns(outThread)
 
 if __name__ == "__main__":
     lab1 = Threads()
