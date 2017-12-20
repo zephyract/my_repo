@@ -161,6 +161,8 @@ class Threads(object):
         #  pprint(outThread)
         self.getAns(outThread)
 
+    def DP(self):
+
 
 if __name__ == "__main__":
     lab1 = Threads()
