@@ -101,8 +101,6 @@ class Memory(object):
     def firstFit(self):
         #  pdb.set_trace()
         for i in self.ops:
-            #  if i["id"] == 8:
-                #  pdb.set_trace()
             if i["op"] == 1:#申请
                 self.malloc("firstFit", i)
             else:#释放
@@ -110,15 +108,15 @@ class Memory(object):
                 self.free(i["pid"])
 
     def bestFit(self):
+        #  pass
         for i in self.ops:
-            if i["id"] == 17:
-                pdb.set_trace()
             if i["op"] == 1:
                 self.malloc("bestFit", i)
             else:
                 self.free(i["pid"])
 
     def worstFit(self):
+        #  pass
         for i in self.ops:
             if i["op"] == 1:
                 self.malloc("worstFit", i)
