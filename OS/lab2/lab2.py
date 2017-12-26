@@ -13,7 +13,7 @@ class Memory(object):
         self.method = int(stdin.readline())
         self.size = int(stdin.readline())
         self.memory = []
-        chunk = {"st": 0, "ed": self.size - 1, "pid": -1}
+        chunk = {"st": 0, "ed": self.size - 1, "pid": -1, "size": self.size}
         self.memory.append(chunk)
 
         self.ops = []
@@ -51,6 +51,7 @@ class Memory(object):
             try:
                 if self.memory[idx]["pid"] == self.memory[idx + 1]["pid"] == -1:
                     self.memory[idx]["ed"] = self.memory[idx + 1]["ed"]
+                    self.memory[idx]["size"] = self.memory[idx]["ed"] - self.memory[idx]["st"] + 1
                     del self.memory[idx + 1]
 
                 idx += 1
@@ -59,44 +60,47 @@ class Memory(object):
                 break
 
     def malloc(self, method, i):
-        if method == "firstFit":
-            self.memory == sorted(self.memory, key = lambda x: x["st"])
-        elif method == "bestFit":
-            pass
-        elif method == "worstFit":
-            pass
-        
         idx = 0
+        if method == "firstFit":
+            self.memory = sorted(self.memory, key = lambda x: x["st"])
+        elif method == "bestFit":
+            self.memory = sorted(self.memory, key = lambda x: x["size"])
+        elif method == "worstFit":
+            self.memory = sorted(self.memory, key = lambda x: x["size"], reverse = True)
+        
         while True:
-            if self.memory[idx]["pid"] == -1 and (self.memory[idx]["ed"] - self.memory[idx]["st"] >= i["size"]):
-                #处理空闲块
-                c1 = deepcopy(self.memory[idx])
-                c1["pid"] = i["pid"]
-                c1["ed"] = i["size"] + c1["st"] - 1
-        
-                #空闲chunk存在剩余
-                if c1["ed"] < self.memory[idx]["ed"]:
-                    c2 = {}
-                    c2["st"] = c1["ed"] + 1
-                    c2["ed"] = self.memory[idx]["ed"]
-                    c2["pid"] = -1
-                    self.memory = self.memory[:idx] + [c1, c2] + self.memory[idx + 1:]
-                    self.getAns()
-                    break
-        
-                else:
-                    self.memory = self.memory[:idx] + [c1] + self.memory[idx + 1:]
-                    self.getAns()
-                    break
-        
-            idx += 1
-            if idx >= len(self.memory):
-                self.getAns()
+            try:
+                if self.memory[idx]["pid"] == -1 and self.memory[idx]["size"] > i["size"]:
+                    #分割空闲块
+                    c1 = deepcopy(self.memory[idx])
+                    c1["pid"] = i["pid"]
+                    c1["ed"] = i["size"] + c1["st"] - 1
+                    c1["size"] = i["size"]
+            
+                    #空闲chunk存在剩余
+                    if c1["ed"] < self.memory[idx]["ed"]:
+                        c2 = {}
+                        c2["st"] = c1["ed"] + 1
+                        c2["ed"] = self.memory[idx]["ed"]
+                        c2["pid"] = -1
+                        c2["size"] = c2["ed"] - c2["st"] + 1
+                        self.memory = self.memory[:idx] + [c1, c2] + self.memory[idx + 1:]
+                        self.getAns()
+                        break
+            
+                    else:
+                        self.memory = self.memory[:idx] + [c1] + self.memory[idx + 1:]
+                        self.getAns()
+                        break
+                idx += 1 
+            except:
                 break
 
     def firstFit(self):
         #  pdb.set_trace()
         for i in self.ops:
+            #  if i["id"] == 8:
+                #  pdb.set_trace()
             if i["op"] == 1:#申请
                 self.malloc("firstFit", i)
             else:#释放
@@ -104,11 +108,18 @@ class Memory(object):
                 self.free(i["pid"])
 
     def bestFit(self):
-        pass
+        for i in self.ops:
+            if i["op"] == 1:
+                self.malloc("bestFit", i)
+            else:
+                self.free(i["pid"])
 
     def worstFit(self):
-        pass
-
+        for i in self.ops:
+            if i["op"] == 1:
+                self.malloc("worstFit", i)
+            else:
+                self.free(i["pid"])
 
 if __name__ == "__main__":
     lab2 = Memory()
