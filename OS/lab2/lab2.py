@@ -53,6 +53,7 @@ class Memory(object):
                     self.memory[idx]["ed"] = self.memory[idx + 1]["ed"]
                     self.memory[idx]["size"] = self.memory[idx]["ed"] - self.memory[idx]["st"] + 1
                     del self.memory[idx + 1]
+                    idx -= 1#多次合并
 
                 idx += 1
             except:
@@ -70,7 +71,7 @@ class Memory(object):
         
         while True:
             try:
-                if self.memory[idx]["pid"] == -1 and self.memory[idx]["size"] > i["size"]:
+                if self.memory[idx]["pid"] == -1 and self.memory[idx]["size"] >= i["size"]:
                     #分割空闲块
                     c1 = deepcopy(self.memory[idx])
                     c1["pid"] = i["pid"]
@@ -94,6 +95,7 @@ class Memory(object):
                         break
                 idx += 1 
             except:
+                self.getAns()
                 break
 
     def firstFit(self):
@@ -109,6 +111,8 @@ class Memory(object):
 
     def bestFit(self):
         for i in self.ops:
+            if i["id"] == 17:
+                pdb.set_trace()
             if i["op"] == 1:
                 self.malloc("bestFit", i)
             else:
