@@ -86,14 +86,14 @@ class MorphologyDealing(object):
         plt.imshow(result, 'gray')
         return cp(result)
 
-    def binary_get(self, img, threshold):
+    def binaryGet(self, img, threshold):
         ret, binary_img = cv2.threshold(img, threshold, 1, cv2.THRESH_BINARY)
         return cp(binary_img)
         
 if __name__ == '__main__':
     md = MorphologyDealing()
     img = cv2.imread('./Steve-Jobs.jpg', 0)
-    img = md.binary_get(img, 127)
+    img = md.binaryGet(img, 127)
     #  res=md.erosionImg(img)
     #  plt.figure()
     #  plt.imshow(res,'gray')
