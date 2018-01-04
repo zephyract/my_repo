@@ -9,7 +9,6 @@ import pandas as pd
 from copy import deepcopy as cp
 import skimage.morphology as sm
 
-
 class MorphologyDealing(object):
     def __init__(self):
         self.kernel3 = np.ones((3, 3), np.uint8)
@@ -37,37 +36,37 @@ class MorphologyDealing(object):
         self.show("dilate", "original", "diatex", diatex)
         return cp(diatex)
         
-    def morphologyExopen_img(self, img):
+    def ExopenImg(self, img):
         moropen = cv2.morphologyEx(img, cv2.MORPH_OPEN, self.kernel15)
         self.show("open op", "original", "MORPH_OPEN", moropen)
         return cp(moropen)
         
-    def morphologyExclose_img(self, img):
+    def ExcloseImg(self, img):
         morclose = cv2.morphologyEx(img, cv2.MORPH_CLOSE, self.kernel15)
         self.show("close op", "original", "MORPH_CLOSE", morclose) 
         return cp(morclose)
         
-    def morphologySkeletonize(self, img):
+    def Skeletionize(self, img):
         sk_img = sm.skeletonize(img)
         self.show("get skeletonize", "original", "skeletonize", sk_img)
         return cp(sk_img)
         
-    def morphologyHull(self, img):
+    def Hull(self, img):
         hull_img = sm.convex_hull_image(img)
         self.show("get convex hull", "original", "convex_hull_image", hull_img)
         return cp(hull_img)
         
-    def morphologyLabeled(self, img):
+    def Labeled(self, img):
         label_img = sm.label(img, neighbors=8)
         self.show("get labels", "original", "labeled_image", label_img)
         return cp(label_img)
         
-    def morphologyThin(self, img):
+    def Thin(self, img):
         thin_img = sm.thin(img, max_iter=None)
         self.show("get thin", "original", "thin_image", thin_img)
         return cp(thin_img)
         
-    def morphologyThick(self, img):
+    def Thick(self, img):
         w, h = img.shape
         for i in xrange(w):
             for j in xrange(h):
@@ -79,9 +78,9 @@ class MorphologyDealing(object):
         self.show("get thick", "original", "thin_image", thick_img)
         return cp(thick_img)
         
-    def getSkin(self, img):
+    def Skin(self, img):
         result = self.erosionImg(img)
-        result = self.morphologyExopen_img(result)
+        result = self.ExopenImg(result)
         result = self.dilateImg(result)
         plt.figure()
         plt.imshow(result, 'gray')
@@ -99,12 +98,12 @@ if __name__ == '__main__':
     #  plt.figure()
     #  plt.imshow(res,'gray')
     md.dilateImg(img)
-    md.morphologyExopen_img(img)
-    md.morphologyExclose_img(img)
-    md.morphologyHull(img)
-    md.morphologySkeletonize(img)
-    md.morphologyLabeled(img)
-    md.morphologyThin(img)
-    md.morphologyThick(img)
-    md.getSkin(img)
+    md.ExopenImg(img)
+    md.ExcloseImg(img)
+    md.Hull(img)
+    md.Skeletionize(img)
+    md.Labeled(img)
+    md.Thin(img)
+    md.Thick(img)
+    md.Skin(img)
     plt.show()
