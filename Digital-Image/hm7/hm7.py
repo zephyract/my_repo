@@ -33,54 +33,41 @@ class MorphologyDealing(object):
         return cp(erosion)
         
     def dilateImg(self, img):
-        # 选择5*5的正方形进行膨胀操作 
         diatex = cv2.dilate(img, self.kernel5, 1)
-        # 结果显示
         self.show("dilate", "original", "diatex", diatex)
         return cp(diatex)
         
     def morphologyExopen_img(self, img):
-        # 选择5*5的正方形进行开运算
         moropen = cv2.morphologyEx(img, cv2.MORPH_OPEN, self.kernel15)
-        # 结果显示
         self.show("open op", "original", "MORPH_OPEN", moropen)
         return cp(moropen)
         
     def morphologyExclose_img(self, img):
-        # 选择5*5的正方形进行闭运算
         morclose = cv2.morphologyEx(img, cv2.MORPH_CLOSE, self.kernel15)
-        # 结果显示
         self.show("close op", "original", "MORPH_CLOSE", morclose) 
         return cp(morclose)
         
     def morphologySkeletonize(self, img):
-        # 实施骨架提取算法
         sk_img = sm.skeletonize(img)
         self.show("get skeletonize", "original", "skeletonize", sk_img)
-        # 结果显示
         return cp(sk_img)
         
     def morphologyHull(self, img):
-        # 凸壳
         hull_img = sm.convex_hull_image(img)
         self.show("get convex hull", "original", "convex_hull_image", hull_img)
         return cp(hull_img)
         
     def morphologyLabeled(self, img):
-        # 连通分量提取
         label_img = sm.label(img, neighbors=8)
         self.show("get labels", "original", "labeled_image", label_img)
         return cp(label_img)
         
     def morphologyThin(self, img):
-        # 细化操作
         thin_img = sm.thin(img, max_iter=None)
-        # max_iter optional regardless if ther value of this parameter
         self.show("get thin", "original", "thin_image", thin_img)
         return cp(thin_img)
         
     def morphologyThick(self, img):
-        # 粗化操作
         w, h = img.shape
         for i in xrange(w):
             for j in xrange(h):
