@@ -74,10 +74,21 @@ class Memory(object):
         self.getAns(True)
 
     def LRU(self):
-        pass
-           
+        for i in xrange(self.size):
+            self.page[i] = self.tasks[i]
+            self.page[-1] = False
+            self.pageFault += 1
+            self.getAns()
+        for idx, t in enumerate(self.tasks[self.size:]):
+            hit = t in self.page
+            self.page = copy(self.page[1: -1] + [t] + [hit])
+            self.page[-1] = hit
+            self.pageFault = self.pageFault + 1 if not hit else self.pageFault
+            self.getAns()
+
+        self.getAns(True)
+ 
 if __name__ == "__main__":
     lab3 = Memory()
     method = (lab3.OPT, lab3.FIFO, lab3.LRU)
     method[lab3.method - 1]()
-
