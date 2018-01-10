@@ -464,8 +464,6 @@ int main() {
 		in[k]=(int)inming[k];
 	int out[16]; // 128 bits
 	
-	int *w; // expanded key
-	
 	switch (sizeof(key)) {
 		default:
 		case 16: Nk = 4; Nr = 10; break;
@@ -473,7 +471,7 @@ int main() {
 		case 32: Nk = 8; Nr = 14; break; // Nk=8, Nr=14
 	}
 	
-	w = malloc(Nb*(Nr+1)*4);
+	int *w = malloc(Nb*(Nr+1)*4);//秘钥扩展
 	// 密钥扩展
 	key_expansion(key, w);
 	// 加密
