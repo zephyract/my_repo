@@ -50,7 +50,7 @@ ll powMod(ll a, int b, int n)
 }
 
 //生成1000以内素数
-int generatePrime(int prime[])
+int genPrime(int prime[])
 {
     int c = 0;
 	bool vis[1001];
@@ -91,7 +91,7 @@ void RSA_Init()
 {
     //取出1000内素数保存在prime[]数组中
     int prime[200];
-    int cntPrime = generatePrime(prime);
+    int cntPrime = genPrime(prime);
 	cout << "\n\n\n";
 	// for(int i = 0; i < 5000; i++)
 		// cout << prime[i] << " ";
