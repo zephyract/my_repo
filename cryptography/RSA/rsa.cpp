@@ -16,7 +16,7 @@ int binTransform(int num, int bin[])
 
     int i = 0,  mod = 0;
 
-    //转换为二进制，逆向暂存temp[]数组中
+    //转换为二进制，逆向暂存tmp[]数组中
     while(num != 0)
     {
         mod = num%2;
@@ -92,7 +92,7 @@ void RSA_Init()
     //取出1000内素数保存在prime[]数组中
     int prime[200];
     int cntPrime = genPrime(prime);
-	cout << "\n\n\n";
+	// cout << "\n\n\n";
 	// for(int i = 0; i < 5000; i++)
 		// cout << prime[i] << " ";
 	// cout << "\n\n\n";
@@ -164,7 +164,7 @@ void Init()
         cout<<Plaintext[i]<<" ";
 	}
 
-	cout << "\n";
+	cout << "\n\n";
 }
 
 int main()
