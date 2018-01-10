@@ -420,17 +420,16 @@ void cipher(int *in, int *out, int *w) {
 void inv_cipher(int *in, int *out, int *w) {
 
 	int state[4*Nb];
-	int r, i, j;
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
 			state[Nb*i+j] = in[i+4*j];
 		}
 	}
 
 	add_round_key(state, w, Nr);
 
-	for (r = Nr-1; r >= 1; r--) {
+	for (int r = Nr-1; r >= 1; r--) {
 		inv_shift_rows(state);
 		inv_sub_bytes(state);
 		add_round_key(state, w, r);
@@ -441,8 +440,8 @@ void inv_cipher(int *in, int *out, int *w) {
 	inv_sub_bytes(state);
 	add_round_key(state, w, 0);
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
 			out[i+4*j] = state[Nb*i+j];
 		}
 	}
@@ -499,7 +498,6 @@ int main() {
 	}
 
 	printf("\n");
-
 	exit(0);
 
 }
