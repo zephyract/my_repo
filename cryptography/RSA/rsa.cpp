@@ -174,7 +174,6 @@ int main()
         RSA_Init();
 
     Encrypt();
-
     Decrypt();
 
     return 0;
