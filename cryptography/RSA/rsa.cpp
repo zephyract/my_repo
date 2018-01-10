@@ -149,7 +149,7 @@ void Decrypt()
     cout<<"Use private key (d, n) to decrypt:"<<'\n';
     for(i = 0; i < 100; i++)
         cout<<Ciphertext[i]<<" ";
-    cout<<'\n'<<'\n';
+    cout<<"\n\n";
 }
 
 
