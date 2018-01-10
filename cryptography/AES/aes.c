@@ -475,7 +475,7 @@ int main() {
 	// 密钥扩展
 	key_expansion(key, w);
 	// 加密
-	cipher(in /* in */, out /* out */, w /* expanded key */);
+	cipher(in, out, w);
 	printf("密文的十六进制:\n");
 	for (int i = 0; i < 4; i++) {
 		printf("%x %x %x %x ", out[4*i+0], out[4*i+1], out[4*i+2], out[4*i+3]);
