@@ -297,13 +297,10 @@ void sub_bytes(int *state) {
 
 void inv_sub_bytes(int *state) {
 
-	int i, j;
-	int row, col;
-
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
-			row = (state[Nb*i+j] & 0xf0) >> 4;
-			col = state[Nb*i+j] & 0x0f;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
+			int row = (state[Nb*i+j] & 0xf0) >> 4;
+			int col = state[Nb*i+j] & 0x0f;
 			state[Nb*i+j] = inv_s_box[16*row+col];
 		}
 	}
@@ -314,23 +311,16 @@ void inv_sub_bytes(int *state) {
 	比如0x27的代替结果是 x＝2 和 y＝7，并且 Sbox[2,7] 返回 0xcc
 */
 void sub_word(int *w) {
-
-	int i;
-
-	for (i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		w[i] = s_box[16*((w[i] & 0xf0) >> 4) + (w[i] & 0x0f)];
 	}
 }
 
 // 接受一个4个字节的数组并将它们向左旋转一个位置
 void rot_word(int *w) {
+	int tmp = w[0];
 
-	int tmp;
-	int i;
-
-	tmp = w[0];
-
-	for (i = 0; i < 3; i++) {
+	for (int i = 0; i < 3; i++) {
 		w[i] = w[i+1];
 	}
 
