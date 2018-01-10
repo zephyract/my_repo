@@ -385,17 +385,16 @@ void key_expansion(int *key, int *w) {
 void cipher(int *in, int *out, int *w) {
 
 	int state[4*Nb];
-	int r, i, j;
 	// 将输入数组拷贝到state(4*4矩阵)
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
 			state[Nb*i+j] = in[i+4*j];
 		}
 	}
 
 	add_round_key(state, w, 0);
 	// Nr=14
-	for (r = 1; r < Nr; r++) {
+	for (int r = 1; r < Nr; r++) {
 		// 将State矩阵中的每个字节替换成一个由Sbox决定的新字节
 		sub_bytes(state);
 		// 将State矩阵中的字节向左旋转
@@ -410,8 +409,8 @@ void cipher(int *in, int *out, int *w) {
 	shift_rows(state);
 	add_round_key(state, w, Nr);	
 
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
 			out[i+4*j] = state[Nb*i+j];
 		}
 	}
