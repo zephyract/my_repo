@@ -11,7 +11,7 @@ ll Ciphertext[100];//密文
 int n, e = 0, d;
 
 //二进制转换
-int BianaryTransform(int num, int bin_num[])
+int binTransform(int num, int bin[])
 {
 
     int i = 0,  mod = 0;
@@ -20,7 +20,7 @@ int BianaryTransform(int num, int bin_num[])
     while(num != 0)
     {
         mod = num%2;
-        bin_num[i] = mod;
+        bin[i] = mod;
         num = num/2;
         i++;
     }
@@ -32,15 +32,15 @@ int BianaryTransform(int num, int bin_num[])
 //反复平方求幂
 ll powMod(ll a, int b, int n)
 {
-    int c = 0, bin_num[1000];
+    int c = 0, bin[1000];
     ll d = 1;
-    int k = BianaryTransform(b, bin_num)-1;
+    int k = binTransform(b, bin)-1;
 
     for(int i = k; i >= 0; i--)
     {
         c = 2*c;
         d = (d*d)%n;
-        if(bin_num[i] == 1)
+        if(bin[i] == 1)
         {
             c = c + 1;
             d = (d*a)%n;
@@ -109,6 +109,7 @@ void RSA_Init()
 
 
     //用欧几里德扩展算法求e,d
+	//保证e足够大
     for(int j = 3; j < On; j+=1331)
     {
         int gcd = egcd(j, On, d);
