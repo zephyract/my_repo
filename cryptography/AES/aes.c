@@ -450,7 +450,6 @@ void inv_cipher(int *in, int *out, int *w) {
 
 int main() {
 
-	int i;
 	int key[16];
 	int in[16];
 	char inkey[32];
@@ -480,24 +479,24 @@ int main() {
 	// 加密
 	cipher(in /* in */, out /* out */, w /* expanded key */);
 	printf("密文的十六进制:\n");
-	for (i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		printf("%x %x %x %x ", out[4*i+0], out[4*i+1], out[4*i+2], out[4*i+3]);
 	}
 	printf("\n");
 	printf("密文:\n");
-		for (i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 		printf("%c%c%c%c", out[4*i+0], out[4*i+1], out[4*i+2], out[4*i+3]);
 	}
 	printf("\n");
 	// 解密
 	inv_cipher(out, in, w);
 	printf("解密后明文的十六进制:\n");
-	for (i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		printf("%x %x %x %x ", in[4*i+0], in[4*i+1], in[4*i+2], in[4*i+3]);
 	}
      printf("\n"); 
 	printf("解密后明文\n");
-		for (i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 		printf("%c%c%c%c", in[4*i+0], in[4*i+1], in[4*i+2], in[4*i+3]);
 	}
 
