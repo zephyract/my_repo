@@ -170,10 +170,7 @@ int * Rcon(int i) {
 	r:使用第r轮密钥（4*4矩阵为一轮）
  */
 void add_round_key(int *state, int *w, int r) {
-	
-	int c;
-	
-	for (c = 0; c < Nb; c++) {
+	for (int c = 0; c < Nb; c++) {
 		// 按列循环，计算第c列的值
 		// state[row,col] = state[row,col]^w[col,row]（r=0）
 		state[Nb*0+c] = state[Nb*0+c]^w[4*Nb*r+4*c+0];   //debug, so it works for Nb !=4 
@@ -238,15 +235,12 @@ void inv_mix_columns(int *state) {
  State的第3行被向左旋转3个位置
  */
 void shift_rows(int *state) {
-
-	int i, k, s, tmp;
-
-	for (i = 1; i < 4; i++) {
-		s = 0;
+	for (int i = 1; i < 4; i++) {
+		int s = 0;
 		while (s < i) {
-			tmp = state[Nb*i+0];
+			int tmp = state[Nb*i+0];
 			
-			for (k = 1; k < Nb; k++) {
+			for (int k = 1; k < Nb; k++) {
 				state[Nb*i+k-1] = state[Nb*i+k];
 			}
 
@@ -258,14 +252,12 @@ void shift_rows(int *state) {
 
 void inv_shift_rows(int *state) {
 
-	int i, k, s, tmp;
-
-	for (i = 1; i < 4; i++) {
-		s = 0;
+	for (int i = 1; i < 4; i++) {
+		int s = 0;
 		while (s < i) {
-			tmp = state[Nb*i+Nb-1];
+			int tmp = state[Nb*i+Nb-1];
 			
-			for (k = Nb-1; k > 0; k--) {
+			for (int k = Nb-1; k > 0; k--) {
 				state[Nb*i+k] = state[Nb*i+k-1];
 			}
 
@@ -282,14 +274,10 @@ void inv_shift_rows(int *state) {
  到Sbox表中寻找代替值,Sbox[x,y]
  */
 void sub_bytes(int *state) {
-
-	int i, j;
-	int row, col;
-
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < Nb; j++) {
-			row = (state[Nb*i+j] & 0xf0) >> 4;
-			col = state[Nb*i+j] & 0x0f;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < Nb; j++) {
+			int row = (state[Nb*i+j] & 0xf0) >> 4;
+			int col = state[Nb*i+j] & 0x0f;
 			state[Nb*i+j] = s_box[16*row+col];
 		}
 	}
