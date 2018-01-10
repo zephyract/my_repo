@@ -9,9 +9,9 @@
 		a=R[0],
 		b=0x02(乘以2，也即将该值的二进制位左移1位)
  */
-uint8_t gmult(uint8_t a, uint8_t b) {
+int gmult(int a, int b) {
 
-	uint8_t p = 0, i = 0, hbs = 0;
+	int p = 0, i = 0, hbs = 0;
 
 	for (i = 0; i < 8; i++) {
 		if (b & 1) {
@@ -24,11 +24,11 @@ uint8_t gmult(uint8_t a, uint8_t b) {
 		b >>= 1;
 	}
 
-	return (uint8_t)p;
+	return (int)p;
 }
 
 // 数组异或
-void coef_add(uint8_t a[], uint8_t b[], uint8_t d[]) {
+void coef_add(int a[], int b[], int d[]) {
 
 	d[0] = a[0]^b[0];
 	d[1] = a[1]^b[1];
@@ -60,7 +60,7 @@ b = {
 coef_mult函数执行的操作就是：将矩阵T和b的每一元素分别执行gmult，在把结果进行异或运算
 运算结果存放在d数组里面
 */
-void coef_mult(uint8_t *a, uint8_t *b, uint8_t *d) {
+void coef_mult(int *a, int *b, int *d) {
 
 	d[0] = gmult(a[0],b[0])^gmult(a[3],b[1])^gmult(a[2],b[2])^gmult(a[1],b[3]);
 	d[1] = gmult(a[1],b[0])^gmult(a[0],b[1])^gmult(a[3],b[2])^gmult(a[2],b[3]);
@@ -91,7 +91,7 @@ int Nr;
 /*
  * S-box transformation table
  */
-static uint8_t s_box[256] = {
+static int s_box[256] = {
 	// 0     1     2     3     4     5     6     7     8     9     a     b     c     d     e     f
 	0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76, // 0
 	0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0, // 1
@@ -113,7 +113,7 @@ static uint8_t s_box[256] = {
 /*
  * Inverse S-box transformation table
  */
-static uint8_t inv_s_box[256] = {
+static int inv_s_box[256] = {
 	// 0     1     2     3     4     5     6     7     8     9     a     b     c     d     e     f
 	0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb, // 0
 	0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb, // 1
@@ -140,13 +140,13 @@ static uint8_t inv_s_box[256] = {
 	值是前一个值乘上0x02。注意 0x80 × 0x02 = 0x1b 是 0x80 左移1个比特位
 	后紧接着与 0x1b 进行异或。
 */
-uint8_t R[] = {0x02, 0x00, 0x00, 0x00};
+int R[] = {0x02, 0x00, 0x00, 0x00};
 
 /*
  RC = {00, 01, 02, 04, 08, 10, 20, 40, 80, 1B, 36}
  这里通过Rcon函数计算，所得的值和直接索引RC表一样。
 */
-uint8_t * Rcon(uint8_t i) {
+int * Rcon(int i) {
 	
 	if (i == 1) {
 		R[0] = 0x01; // x^(1-1) = x^0 = 1
@@ -169,9 +169,9 @@ uint8_t * Rcon(uint8_t i) {
 	w:轮密钥
 	r:使用第r轮密钥（4*4矩阵为一轮）
  */
-void add_round_key(uint8_t *state, uint8_t *w, uint8_t r) {
+void add_round_key(int *state, int *w, int r) {
 	
-	uint8_t c;
+	int c;
 	
 	for (c = 0; c < Nb; c++) {
 		// 按列循环，计算第c列的值
@@ -193,10 +193,10 @@ State[0,1]=(State[0,1]*0x01)+(State[1,1]*0x02)+(State[2,1]*0x03)+(State[3,1]*0x0
 此处加法和乘法是专门的数学域操作，而不是平常整数的加法和乘法
 数学域操作 查阅相关资料
 */
-void mix_columns(uint8_t *state) {
+void mix_columns(int *state) {
 
-	uint8_t a[] = {0x02, 0x01, 0x01, 0x03}; // a(x) = {02} + {01}x + {01}x2 + {03}x3
-	uint8_t i, j, col[4], res[4];
+	int a[] = {0x02, 0x01, 0x01, 0x03}; // a(x) = {02} + {01}x + {01}x2 + {03}x3
+	int i, j, col[4], res[4];
 
 	for (j = 0; j < Nb; j++) {
 		// 按列取出state数据
@@ -212,10 +212,10 @@ void mix_columns(uint8_t *state) {
 	}
 }
 
-void inv_mix_columns(uint8_t *state) {
+void inv_mix_columns(int *state) {
 
-	uint8_t a[] = {0x0e, 0x09, 0x0d, 0x0b}; // a(x) = {0e} + {09}x + {0d}x2 + {0b}x3
-	uint8_t i, j, col[4], res[4];
+	int a[] = {0x0e, 0x09, 0x0d, 0x0b}; // a(x) = {0e} + {09}x + {0d}x2 + {0b}x3
+	int i, j, col[4], res[4];
 
 	for (j = 0; j < Nb; j++) {
 		for (i = 0; i < 4; i++) {
@@ -237,9 +237,9 @@ void inv_mix_columns(uint8_t *state) {
  State的第2行被向左旋转2个位置，
  State的第3行被向左旋转3个位置
  */
-void shift_rows(uint8_t *state) {
+void shift_rows(int *state) {
 
-	uint8_t i, k, s, tmp;
+	int i, k, s, tmp;
 
 	for (i = 1; i < 4; i++) {
 		s = 0;
@@ -256,9 +256,9 @@ void shift_rows(uint8_t *state) {
 	}
 }
 
-void inv_shift_rows(uint8_t *state) {
+void inv_shift_rows(int *state) {
 
-	uint8_t i, k, s, tmp;
+	int i, k, s, tmp;
 
 	for (i = 1; i < 4; i++) {
 		s = 0;
@@ -281,10 +281,10 @@ void inv_shift_rows(uint8_t *state) {
  让x等于左边的数字(4)并让y等于右边的数字(0)。然后你用x和y作为索引进
  到Sbox表中寻找代替值,Sbox[x,y]
  */
-void sub_bytes(uint8_t *state) {
+void sub_bytes(int *state) {
 
-	uint8_t i, j;
-	uint8_t row, col;
+	int i, j;
+	int row, col;
 
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < Nb; j++) {
@@ -295,10 +295,10 @@ void sub_bytes(uint8_t *state) {
 	}
 }
 
-void inv_sub_bytes(uint8_t *state) {
+void inv_sub_bytes(int *state) {
 
-	uint8_t i, j;
-	uint8_t row, col;
+	int i, j;
+	int row, col;
 
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < Nb; j++) {
@@ -313,9 +313,9 @@ void inv_sub_bytes(uint8_t *state) {
 	使用替换表 Sbox 对一个给定的一行密钥调度表 w[] 进行逐字节替换
 	比如0x27的代替结果是 x＝2 和 y＝7，并且 Sbox[2,7] 返回 0xcc
 */
-void sub_word(uint8_t *w) {
+void sub_word(int *w) {
 
-	uint8_t i;
+	int i;
 
 	for (i = 0; i < 4; i++) {
 		w[i] = s_box[16*((w[i] & 0xf0) >> 4) + (w[i] & 0x0f)];
@@ -323,10 +323,10 @@ void sub_word(uint8_t *w) {
 }
 
 // 接受一个4个字节的数组并将它们向左旋转一个位置
-void rot_word(uint8_t *w) {
+void rot_word(int *w) {
 
-	uint8_t tmp;
-	uint8_t i;
+	int tmp;
+	int i;
 
 	tmp = w[0];
 
@@ -342,14 +342,13 @@ AES加密和解密算法使用了一个由种子密钥字节数组生成的密�
 中称之为密钥扩展例程（KeyExpansion）。从本质上讲，从一个原始密钥中生成多
 重密钥以代替使用单个密钥大大增加了比特位的扩散.
 */
-void key_expansion(uint8_t *key, uint8_t *w) {
+void key_expansion(int *key, int *w) {
 
-	uint8_t tmp[4];
-	uint8_t i, j;
-	uint8_t len = Nb*(Nr+1); // 4*(14+1) = 60, Nk=8,
+	int tmp[4];
+	int len = Nb*(Nr+1); // 4*(14+1) = 60, Nk=8,
 	// 将种子密钥的值拷贝到密钥调度字节表 w[], 因为 w[] 表总是 4 列，假如种子密钥
 	// 是 192 位（24字节），在这种情况下KeyExapansion 将种子密钥拷贝到 w[] 的前面 6 行
-	for (i = 0; i < Nk; i++) {
+	for (int i = 0; i < Nk; i++) {
 		w[4*i+0] = key[4*i+0];
 		w[4*i+1] = key[4*i+1];
 		w[4*i+2] = key[4*i+2];
@@ -357,7 +356,7 @@ void key_expansion(uint8_t *key, uint8_t *w) {
 	}
 	
 	// 计算剩余w[]的值
-	for (i = Nk; i < len; i++) {
+	for (int i = Nk; i < len; i++) {
 		// w[j-4]
 		tmp[0] = w[4*(i-1)+0];
 		tmp[1] = w[4*(i-1)+1];
@@ -372,11 +371,9 @@ void key_expansion(uint8_t *key, uint8_t *w) {
 			// 与32 bits的常量（RC[i/Nk],0,0,0）进行异或
 			coef_add(tmp, Rcon(i/Nk), tmp);
 
-		} else if (Nk > 6 && i%Nk == 4) {
-
+		} else if (Nk > 6 && i%Nk == 4) 
 			sub_word(tmp);
 
-		}
 
 		w[4*i+0] = w[4*(i-Nk)+0]^tmp[0];
 		w[4*i+1] = w[4*(i-Nk)+1]^tmp[1];
@@ -385,10 +382,10 @@ void key_expansion(uint8_t *key, uint8_t *w) {
 	}
 }
 
-void cipher(uint8_t *in, uint8_t *out, uint8_t *w) {
+void cipher(int *in, int *out, int *w) {
 
-	uint8_t state[4*Nb];
-	uint8_t r, i, j;
+	int state[4*Nb];
+	int r, i, j;
 	// 将输入数组拷贝到state(4*4矩阵)
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < Nb; j++) {
@@ -420,10 +417,10 @@ void cipher(uint8_t *in, uint8_t *out, uint8_t *w) {
 	}
 }
 
-void inv_cipher(uint8_t *in, uint8_t *out, uint8_t *w) {
+void inv_cipher(int *in, int *out, int *w) {
 
-	uint8_t state[4*Nb];
-	uint8_t r, i, j;
+	int state[4*Nb];
+	int r, i, j;
 
 	for (i = 0; i < 4; i++) {
 		for (j = 0; j < Nb; j++) {
@@ -453,27 +450,22 @@ void inv_cipher(uint8_t *in, uint8_t *out, uint8_t *w) {
 
 int main() {
 
-	uint8_t i;
-	uint8_t key[16];
-	uint8_t in[16];
-		char inkey[32];
-		char inming[16];
-		printf("请输入16位密钥:");
-		scanf("%s",inkey);
-		printf("请输入16位需要加密的明文:");
-		scanf("%s",inming);
-		int k=0;
-		for(k=0;k<16;k++)
-		{
-			key[k]=(uint8_t)inkey[k];
-		}
-		for(k=0;k<16;k++)
-		{
-			in[k]=(uint8_t)inming[k];
-		}
-	uint8_t out[16]; // 128
+	int i;
+	int key[16];
+	int in[16];
+	char inkey[32];
+	char inming[16];
+	printf("请输入16位密钥:");
+	scanf("%s",inkey);
+	printf("请输入16位需要加密的明文:");
+	scanf("%s",inming);
+	for(int k=0;k<16;k++)
+		key[k]=(int)inkey[k];
+	for(int k=0;k<16;k++)
+		in[k]=(int)inming[k];
+	int out[16]; // 128 bits
 	
-	uint8_t *w; // expanded key
+	int *w; // expanded key
 	
 	switch (sizeof(key)) {
 		default:
