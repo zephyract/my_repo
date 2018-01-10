@@ -164,7 +164,7 @@ void Init()
         cout<<Plaintext[i]<<" ";
 	}
 
-	cout << "\n\n";
+	cout << "\n";
 }
 
 int main()
