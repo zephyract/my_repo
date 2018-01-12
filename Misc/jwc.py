@@ -14,10 +14,12 @@ headers = {
 
 while True:
     try:
-        for i in range(1, len(argv)):
+        for i in range(0, len(argv)):
             print i
-            url = 'http://jwms.bit.edu.cn/jsxsd/xsxkkc/ggxxkxkOper/jx0404id=%s&xkzy=&trjf=' % argv[i]
+            url = 'http://jwms.bit.edu.cn/jsxsd/xsxkkc/ggxxkxkOper/jx0404id=%s&xkzy=&trjf=' % argv[i + 2]
+            #  print url
             r = requests.get(url = url, headers = headers)
+            print r.content
             if "true" in r.content:
                 print "success"
                 break
