@@ -206,7 +206,7 @@ $afl_fuzz -i afl_in -o afl_out -Q readelf -a @@
 
 如下图,已经开始fuzz了:
 
-![](https://ws1.sinaimg.cn/large/006AWYXBly1fnf794m6q3j31400p0qkz.jpg)
+![](https://ws1.sinaimg.cn/large/006AWYXBly1fng4ms5vyuj31400p0are.jpg)
 
 **本篇博文只对afl-fuzz的基本操作做了介绍,更多的高级用法还待以后探索**
 
