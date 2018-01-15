@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
+#转化为相对路径
+path=`pwd`
+len=${#path}
+# echo $len
 while true
 do
-	echo -n "当前目录:"
-	pwd
-	read -p "> " cmd
-	#字符串比较注意空格的使用
-	#new,转义空格
+	path=`pwd`
+	read -p "~/"${path:len}":" cmd
+	# 字符串比较注意空格的使用
+	# new,转义空格
 	if [[ "$cmd" == new\ * ]]; then
 		#echo "test"
 		mkdir ${cmd:4}
