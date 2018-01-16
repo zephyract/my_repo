@@ -39,11 +39,16 @@ do
 	}
 
 	elif [ "$flag" = true ] && ([[ "$cmd" == mkdir\ * ]] || [[ "$cmd" == rmdir\ * ]] || [[ "$cmd" == ls ]] || [[ "$cmd" == cd\ * ]]); then
-		$cmd
+		$cmd 2>error || {
+		echo "Wrong command!"
+	}
+
 	elif [ "$flag" = true ] && [[ "$cmd" == create\ *  ]]; then
-		touch "${cmd:7}"
+		touch "${cmd:7}" 2>error || {
+		echo "The file ""${cmd:7}"" already existed."
+	}
 		# 此时文件有可读可执行权限 
-		chmod 555 "${cmd:7}"
+		chmod 555 "${cmd:7}" 2>error
 	elif [ "$flag" = true ] && [[ "$cmd" == open\ * ]]; then
 		# 此时文件具只有可写权限  
 		chmod 666 "${cmd:5}"
