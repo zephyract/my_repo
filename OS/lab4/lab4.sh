@@ -10,7 +10,7 @@ function onCtrlC () {
 	echo "Something wrong occured. Your tasks won't be saved..."
 	cd $workdir
 	mv "$(basename $0)" ..
-	rm * -r
+	rm * -r -f
 	mv "../""$(basename $0)" .
 	exit
 }
