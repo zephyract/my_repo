@@ -6,8 +6,7 @@ echo "Welcome to M4x's fileSystem."
 echo "This is a simplified fileSystem for lab4 of OS of BIT."
 
 trap 'onCtrlC' INT
-function onCtrlC () {
-	echo "Something wrong occured. Your tasks won't be saved..."
+function onCtrlC () { echo "Something wrong occured. Your tasks won't be saved..."
 	cd $workdir
 	mv "$(basename $0)" ..
 	rm * -r -f
@@ -67,12 +66,16 @@ do
 	}
 	elif [ "$flag" = true ] && [[ "$cmd" == write\ * ]]; then
 		# 检测文件是否存在 
-		if [ ! -e "$cmd{:6}" ]; then
+		# set -x
+		if [ ! -e "${cmd:6}" ]; then
 			echo "The file ""${cmd:6}"" doesn't exist!"
 		fi
+		# set +x
 
 		read -p "Please input your content: " content
-		echo -n "$content" > "${cmd:6}"
+		echo -n "$content" > "${cmd:6}" 2>/dev/null || {
+		echo "The file ""${cmd:6}"" hasn't been opened!"
+	}
 	elif [ "$flag" = true ] && [[ "$cmd" == delete\ * ]]; then
 		rm "${cmd:7}" 2>/dev/null || {
 		echo "The file ""${cmd:4}"" doesn't existed!"
