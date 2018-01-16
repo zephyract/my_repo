@@ -3,7 +3,8 @@
 set -u
 # set -x #debug
 echo "Welcome to M4x's fileSystem."
-echo "This is a simplified fileSystem for lab4 of OSofBIT."
+echo "This is a simplified fileSystem for lab4 of OS of BIT."
+
 trap 'onCtrlC' INT
 function onCtrlC () {
 	echo "Something wrong occured. Your tasks won't be saved..."
@@ -27,28 +28,34 @@ do
 	# new,转义空格
 	if [[ "$cmd" == new\ * ]]; then
 		#echo "test"
-		mkdir "${cmd:4}"
+		mkdir "${cmd:4}" 2>error || {
+		echo "${cmd:4}"" already existed. Try another name!"
+	}
+
 	elif [[ "$cmd" == sfs\ * ]]; then
-		flag=True
-		cd "${cmd:4}"
+		flag=true
+		cd "${cmd:4}" 2>error || {
+		echo "There is no ""${cmd:4}""! Please check your fileSystem's name!"
+	}
+
 	elif [ "$flag" = true ] && ([[ "$cmd" == mkdir\ * ]] || [[ "$cmd" == rmdir\ * ]] || [[ "$cmd" == ls ]] || [[ "$cmd" == cd\ * ]]); then
 		$cmd
 	elif [ "$flag" = true ] && [[ "$cmd" == create\ *  ]]; then
 		touch "${cmd:7}"
 		# 此时文件有可读可执行权限 
 		chmod 555 "${cmd:7}"
-	elif $flag && [[ "$cmd" == open\ * ]]; then
+	elif [ "$flag" = true ] && [[ "$cmd" == open\ * ]]; then
 		# 此时文件具只有可写权限  
 		chmod 666 "${cmd:5}"
-	elif [[ "$cmd" == close\ * ]]; then
+	elif [ "$flag" = true ] && [[ "$cmd" == close\ * ]]; then
 		# 此时文件具有可读可执行权限
 		chmod 555 "${cmd:6}"
-	elif [[ "$cmd" == read\ * ]]; then
+	elif [ "$flag" = true ] && [[ "$cmd" == read\ * ]]; then
 		cat "${cmd:5}"
-	elif [[ "$cmd" == write\ * ]]; then
+	elif [ "$flag" = true ] && [[ "$cmd" == write\ * ]]; then
 		read -p "Please input your content: " content
 		echo -n "$content" > "${cmd:6}"
-	elif [[ "$cmd" == delete\ * ]]; then
+	elif [ "$flag" = true ] && [[ "$cmd" == delete\ * ]]; then
 		rm "${cmd:7}"
 	elif [[ "$cmd" == exit ]]; then
 		echo "Good Bye!"
