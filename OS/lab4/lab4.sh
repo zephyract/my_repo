@@ -28,35 +28,40 @@ do
 	# new,转义空格
 	if [[ "$cmd" == new\ * ]]; then
 		#echo "test"
-		mkdir "${cmd:4}" 2>error || {
-		echo "${cmd:4}"" already existed. Try another name!"
+		mkdir "${cmd:4}" 2>error.log || {
+		echo "The fileSystem ""${cmd:4}"" already existed. Try another name!"
 	}
 
 	elif [[ "$cmd" == sfs\ * ]]; then
 		flag=true
-		cd "${cmd:4}" 2>error || {
+		cd "${cmd:4}" 2>error.log || {
 		echo "There is no ""${cmd:4}""! Please check your fileSystem's name!"
 	}
 
 	elif [ "$flag" = true ] && ([[ "$cmd" == mkdir\ * ]] || [[ "$cmd" == rmdir\ * ]] || [[ "$cmd" == ls ]] || [[ "$cmd" == cd\ * ]]); then
-		$cmd 2>error || {
+		$cmd 2>error.log || {
 		echo "Wrong command!"
 	}
 
 	elif [ "$flag" = true ] && [[ "$cmd" == create\ *  ]]; then
-		touch "${cmd:7}" 2>error || {
-		echo "The file ""${cmd:7}"" already existed."
-	}
+		# create两次即为清空 
+		touch "${cmd:7}" 
 		# 此时文件有可读可执行权限 
-		chmod 555 "${cmd:7}" 2>error
+		chmod 555 "${cmd:7}" 2>error.log
 	elif [ "$flag" = true ] && [[ "$cmd" == open\ * ]]; then
 		# 此时文件具只有可写权限  
-		chmod 666 "${cmd:5}"
+		chmod 666 "${cmd:5}" 2>error.log || {
+		echo "The file ""${cmd:4}"" doesn't existed!"
+	}
 	elif [ "$flag" = true ] && [[ "$cmd" == close\ * ]]; then
 		# 此时文件具有可读可执行权限
-		chmod 555 "${cmd:6}"
+		chmod 555 "${cmd:6}" 2>error.log || {
+		echo "The file ""${cmd:4}"" doesn't existed!"
+	}
 	elif [ "$flag" = true ] && [[ "$cmd" == read\ * ]]; then
-		cat "${cmd:5}"
+		cat "${cmd:5}" 2>error.log || {
+		echo "The file ""${cmd:4}"" doesn't existed!"
+	}
 	elif [ "$flag" = true ] && [[ "$cmd" == write\ * ]]; then
 		read -p "Please input your content: " content
 		echo -n "$content" > "${cmd:6}"
