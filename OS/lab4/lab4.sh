@@ -28,15 +28,15 @@ do
 		#echo "test"
 		mkdir "${cmd:4}"
 	elif [[ "$cmd" == sfs\ * ]]; then
-		$flag=True
+		flag=True
 		cd "${cmd:4}"
-	elif flag && ([[ "$cmd" == mkdir\ * ]] || [[ "$cmd" == rmdir\ * ]] || [[ "$cmd" == ls ]] || [[ "$cmd" == cd\ * ]]); then
+	elif $flag && ([[ "$cmd" == mkdir\ * ]] || [[ "$cmd" == rmdir\ * ]] || [[ "$cmd" == ls ]] || [[ "$cmd" == cd\ * ]]); then
 		$cmd
-	elif [[ "$cmd" == create\ *  ]]; then
+	elif $flag && [[ "$cmd" == create\ *  ]]; then
 		touch "${cmd:7}"
 		# 此时文件有可读可执行权限 
 		chmod 555 "${cmd:7}"
-	elif [[ "$cmd" == open\ * ]]; then
+	elif $flag && [[ "$cmd" == open\ * ]]; then
 		# 此时文件具只有可写权限  
 		chmod 666 "${cmd:5}"
 	elif [[ "$cmd" == close\ * ]]; then
