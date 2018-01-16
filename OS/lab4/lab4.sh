@@ -8,15 +8,18 @@ echo "This is a simplified fileSystem for lab4 of OS of BIT."
 trap 'onCtrlC' INT
 function onCtrlC () {
 	echo "Something wrong occured. Your tasks won't be saved..."
-	echo $workdir
+	cd $workdir
+	mv "$(basename $0)" ..
+	rm * -r
+	mv "../""$(basename $0)" .
 	exit
 }
 
-# workdir保存脚本所在路径
-workdir="$(cd $(dirname $0); pwd)""/""$(basename $0)"
+# workdir保存脚本所在目录路径
+workdir="$(cd $(dirname $0); pwd)"
+# echo $workdir
 #转化为相对路径
-path=$(pwd)
-len=${#path}
+len=${#workdir}
 # echo $len
 #标记是否打开了文件系统
 flag=false
