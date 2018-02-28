@@ -1,0 +1,356 @@
+ELF 头：
+  Magic：  7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  类别:                              ELF64
+  数据:                              2 补码，小端序 (little endian)
+  版本:                              1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI 版本:                          0
+  类型:                              DYN (共享目标文件)
+  系统架构:                          Advanced Micro Devices X86-64
+  版本:                              0x1
+  入口点地址：              0x2390
+  程序头起点：              64 (bytes into file)
+  Start of section headers:          21000 (bytes into file)
+  标志：             0x0
+  本头的大小：       64 (字节)
+  程序头大小：       56 (字节)
+  Number of program headers:         9
+  节头大小：         64 (字节)
+  节头数量：         28
+  字符串表索引节头： 27
+
+节头：
+  [号] 名称              类型             地址              偏移量
+       大小              全体大小          旗标   链接   信息   对齐
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .interp           PROGBITS         0000000000000238  00000238
+       000000000000001c  0000000000000000   A       0     0     1
+  [ 2] .note.ABI-tag     NOTE             0000000000000254  00000254
+       0000000000000020  0000000000000000   A       0     0     4
+  [ 3] .note.gnu.build-i NOTE             0000000000000274  00000274
+       0000000000000024  0000000000000000   A       0     0     4
+  [ 4] .gnu.hash         GNU_HASH         0000000000000298  00000298
+       000000000000004c  0000000000000000   A       5     0     8
+  [ 5] .dynsym           DYNSYM           00000000000002e8  000002e8
+       0000000000000540  0000000000000018   A       6     1     8
+  [ 6] .dynstr           STRTAB           0000000000000828  00000828
+       0000000000000280  0000000000000000   A       0     0     1
+  [ 7] .gnu.version      VERSYM           0000000000000aa8  00000aa8
+       0000000000000070  0000000000000002   A       5     0     2
+  [ 8] .gnu.version_r    VERNEED          0000000000000b18  00000b18
+       0000000000000040  0000000000000000   A       6     1     8
+  [ 9] .rela.dyn         RELA             0000000000000b58  00000b58
+       0000000000000948  0000000000000018   A       5     0     8
+  [10] .init             PROGBITS         00000000000014a0  000014a0
+       0000000000000017  0000000000000000  AX       0     0     4
+  [11] .plt              PROGBITS         00000000000014c0  000014c0
+       0000000000000010  0000000000000010  AX       0     0     16
+  [12] .plt.got          PROGBITS         00000000000014d0  000014d0
+       0000000000000140  0000000000000000  AX       0     0     8
+  [13] .text             PROGBITS         0000000000001610  00001610
+       0000000000001532  0000000000000000  AX       0     0     16
+  [14] .fini             PROGBITS         0000000000002b44  00002b44
+       0000000000000009  0000000000000000  AX       0     0     4
+  [15] .rodata           PROGBITS         0000000000002b60  00002b60
+       0000000000000fdd  0000000000000000   A       0     0     32
+  [16] .eh_frame_hdr     PROGBITS         0000000000003b40  00003b40
+       000000000000006c  0000000000000000   A       0     0     4
+  [17] .eh_frame         PROGBITS         0000000000003bb0  00003bb0
+       00000000000002d4  0000000000000000   A       0     0     8
+  [18] .init_array       INIT_ARRAY       0000000000204848  00004848
+       0000000000000008  0000000000000008  WA       0     0     8
+  [19] .fini_array       FINI_ARRAY       0000000000204850  00004850
+       0000000000000008  0000000000000008  WA       0     0     8
+  [20] .jcr              PROGBITS         0000000000204858  00004858
+       0000000000000008  0000000000000000  WA       0     0     8
+  [21] .data.rel.ro      PROGBITS         0000000000204860  00004860
+       0000000000000440  0000000000000000  WA       0     0     32
+  [22] .dynamic          DYNAMIC          0000000000204ca0  00004ca0
+       00000000000001e0  0000000000000010  WA       6     0     8
+  [23] .got              PROGBITS         0000000000204e80  00004e80
+       0000000000000180  0000000000000008  WA       0     0     8
+  [24] .data             PROGBITS         0000000000205000  00005000
+       00000000000000d0  0000000000000000  WA       0     0     32
+  [25] .bss              NOBITS           00000000002050e0  000050d0
+       0000000000000070  0000000000000000  WA       0     0     32
+  [26] .gnu_debuglink    PROGBITS         0000000000000000  000050d0
+       0000000000000034  0000000000000000           0     0     1
+  [27] .shstrtab         STRTAB           0000000000000000  00005104
+       0000000000000101  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  l (large), p (processor specific)
+
+There are no section groups in this file.
+
+程序头：
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
+                 0x00000000000001f8 0x00000000000001f8  R E    0x8
+  INTERP         0x0000000000000238 0x0000000000000238 0x0000000000000238
+                 0x000000000000001c 0x000000000000001c  R      0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000003e84 0x0000000000003e84  R E    0x200000
+  LOAD           0x0000000000004848 0x0000000000204848 0x0000000000204848
+                 0x0000000000000888 0x0000000000000908  RW     0x200000
+  DYNAMIC        0x0000000000004ca0 0x0000000000204ca0 0x0000000000204ca0
+                 0x00000000000001e0 0x00000000000001e0  RW     0x8
+  NOTE           0x0000000000000254 0x0000000000000254 0x0000000000000254
+                 0x0000000000000044 0x0000000000000044  R      0x4
+  GNU_EH_FRAME   0x0000000000003b40 0x0000000000003b40 0x0000000000003b40
+                 0x000000000000006c 0x000000000000006c  R      0x4
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     0x10
+  GNU_RELRO      0x0000000000004848 0x0000000000204848 0x0000000000204848
+                 0x00000000000007b8 0x00000000000007b8  R      0x1
+
+ Section to Segment mapping:
+  段节...
+   00     
+   01     .interp 
+   02     .interp .note.ABI-tag .note.gnu.build-id .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .init .plt .plt.got .text .fini .rodata .eh_frame_hdr .eh_frame 
+   03     .init_array .fini_array .jcr .data.rel.ro .dynamic .got .data .bss 
+   04     .dynamic 
+   05     .note.ABI-tag .note.gnu.build-id 
+   06     .eh_frame_hdr 
+   07     
+   08     .init_array .fini_array .jcr .data.rel.ro .dynamic .got 
+
+Dynamic section at offset 0x4ca0 contains 26 entries:
+  标记        类型                         名称/值
+ 0x0000000000000001 (NEEDED)             共享库：[libmagic.so.1]
+ 0x0000000000000001 (NEEDED)             共享库：[libz.so.1]
+ 0x0000000000000001 (NEEDED)             共享库：[libc.so.6]
+ 0x000000000000000c (INIT)               0x14a0
+ 0x000000000000000d (FINI)               0x2b44
+ 0x0000000000000019 (INIT_ARRAY)         0x204848
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x204850
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x298
+ 0x0000000000000005 (STRTAB)             0x828
+ 0x0000000000000006 (SYMTAB)             0x2e8
+ 0x000000000000000a (STRSZ)              640 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x204e80
+ 0x0000000000000007 (RELA)               0xb58
+ 0x0000000000000008 (RELASZ)             2376 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            标志： NOW PIE
+ 0x000000006ffffffe (VERNEED)            0xb18
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0xaa8
+ 0x000000006ffffff9 (RELACOUNT)          49
+ 0x0000000000000000 (NULL)               0x0
+
+重定位节 '.rela.dyn' 位于偏移量 0xb58 含有 99 个条目：
+  偏移量          信息           类型           符号值        符号名称 + 加数
+000000204848  000000000008 R_X86_64_RELATIVE                    2490
+000000204850  000000000008 R_X86_64_RELATIVE                    2450
+000000204860  000000000008 R_X86_64_RELATIVE                    35a8
+000000204870  000000000008 R_X86_64_RELATIVE                    38db
+000000204880  000000000008 R_X86_64_RELATIVE                    38e1
+000000204890  000000000008 R_X86_64_RELATIVE                    3668
+0000002048a0  000000000008 R_X86_64_RELATIVE                    38e5
+0000002048b0  000000000008 R_X86_64_RELATIVE                    373d
+0000002048c0  000000000008 R_X86_64_RELATIVE                    38e9
+0000002048d0  000000000008 R_X86_64_RELATIVE                    38ee
+0000002048e0  000000000008 R_X86_64_RELATIVE                    38f2
+0000002048f0  000000000008 R_X86_64_RELATIVE                    38f7
+000000204900  000000000008 R_X86_64_RELATIVE                    3633
+000000204920  000000000008 R_X86_64_RELATIVE                    3641
+000000204940  000000000008 R_X86_64_RELATIVE                    3652
+000000204960  000000000008 R_X86_64_RELATIVE                    3666
+000000204980  000000000008 R_X86_64_RELATIVE                    367a
+0000002049a0  000000000008 R_X86_64_RELATIVE                    3697
+0000002049c0  000000000008 R_X86_64_RELATIVE                    36a6
+0000002049e0  000000000008 R_X86_64_RELATIVE                    36c1
+000000204a00  000000000008 R_X86_64_RELATIVE                    36d2
+000000204a20  000000000008 R_X86_64_RELATIVE                    36e6
+000000204a40  000000000008 R_X86_64_RELATIVE                    36f9
+000000204a60  000000000008 R_X86_64_RELATIVE                    3706
+000000204a80  000000000008 R_X86_64_RELATIVE                    3714
+000000204aa0  000000000008 R_X86_64_RELATIVE                    3726
+000000204ac0  000000000008 R_X86_64_RELATIVE                    3738
+000000204ae0  000000000008 R_X86_64_RELATIVE                    374f
+000000204b00  000000000008 R_X86_64_RELATIVE                    3763
+000000204b20  000000000008 R_X86_64_RELATIVE                    3771
+000000204b40  000000000008 R_X86_64_RELATIVE                    3786
+000000204b60  000000000008 R_X86_64_RELATIVE                    379e
+000000204b80  000000000008 R_X86_64_RELATIVE                    37b1
+000000204ba0  000000000008 R_X86_64_RELATIVE                    37c1
+000000204bc0  000000000008 R_X86_64_RELATIVE                    37d1
+000000204be0  000000000008 R_X86_64_RELATIVE                    37e8
+000000204c00  000000000008 R_X86_64_RELATIVE                    37fb
+000000204c20  000000000008 R_X86_64_RELATIVE                    3808
+000000204c40  000000000008 R_X86_64_RELATIVE                    381f
+000000204c60  000000000008 R_X86_64_RELATIVE                    3830
+000000205008  000000000008 R_X86_64_RELATIVE                    205008
+000000205020  000000000008 R_X86_64_RELATIVE                    38a6
+000000205038  000000000008 R_X86_64_RELATIVE                    38ac
+000000205050  000000000008 R_X86_64_RELATIVE                    38b1
+000000205068  000000000008 R_X86_64_RELATIVE                    38bb
+000000205080  000000000008 R_X86_64_RELATIVE                    38c5
+000000205098  000000000008 R_X86_64_RELATIVE                    38cf
+0000002050b0  000000000008 R_X86_64_RELATIVE                    38d5
+0000002050c8  000000000008 R_X86_64_RELATIVE                    38fe
+000000204e98  000100000006 R_X86_64_GLOB_DAT 0000000000000000 getenv@GLIBC_2.2.5 + 0
+000000204ea0  000200000006 R_X86_64_GLOB_DAT 0000000000000000 free@GLIBC_2.2.5 + 0
+000000204ea8  000300000006 R_X86_64_GLOB_DAT 0000000000000000 magic_list + 0
+000000204eb0  000400000006 R_X86_64_GLOB_DAT 0000000000000000 __errno_location@GLIBC_2.2.5 + 0
+000000204eb8  000500000006 R_X86_64_GLOB_DAT 0000000000000000 strncmp@GLIBC_2.2.5 + 0
+000000204ec0  000600000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_deregisterTMClone + 0
+000000204ec8  000700000006 R_X86_64_GLOB_DAT 0000000000000000 magic_compile + 0
+000000204ed0  000800000006 R_X86_64_GLOB_DAT 0000000000000000 magic_load + 0
+000000204ed8  000900000006 R_X86_64_GLOB_DAT 0000000000000000 magic_setparam + 0
+000000204ee0  000a00000006 R_X86_64_GLOB_DAT 0000000000000000 fclose@GLIBC_2.2.5 + 0
+000000204ee8  000b00000006 R_X86_64_GLOB_DAT 0000000000000000 strlen@GLIBC_2.2.5 + 0
+000000204ef0  000c00000006 R_X86_64_GLOB_DAT 0000000000000000 magic_file + 0
+000000204ef8  000d00000006 R_X86_64_GLOB_DAT 0000000000000000 __stack_chk_fail@GLIBC_2.4 + 0
+000000204f00  000e00000006 R_X86_64_GLOB_DAT 0000000000000000 getopt_long@GLIBC_2.2.5 + 0
+000000204f08  000f00000006 R_X86_64_GLOB_DAT 0000000000000000 mbrtowc@GLIBC_2.2.5 + 0
+000000204f10  001000000006 R_X86_64_GLOB_DAT 0000000000000000 strchr@GLIBC_2.2.5 + 0
+000000204f18  001100000006 R_X86_64_GLOB_DAT 0000000000000000 rewind@GLIBC_2.2.5 + 0
+000000204f20  001200000006 R_X86_64_GLOB_DAT 0000000000000000 _IO_putc@GLIBC_2.2.5 + 0
+000000204f28  001300000006 R_X86_64_GLOB_DAT 0000000000000000 strrchr@GLIBC_2.2.5 + 0
+000000204f30  001400000006 R_X86_64_GLOB_DAT 0000000000000000 fputs@GLIBC_2.2.5 + 0
+000000204f38  001500000006 R_X86_64_GLOB_DAT 0000000000000000 magic_error + 0
+000000204f40  001600000006 R_X86_64_GLOB_DAT 0000000000000000 fputc@GLIBC_2.2.5 + 0
+000000204f48  001700000006 R_X86_64_GLOB_DAT 0000000000000000 __libc_start_main@GLIBC_2.2.5 + 0
+000000204f50  001800000006 R_X86_64_GLOB_DAT 0000000000000000 __getdelim@GLIBC_2.2.5 + 0
+000000204f58  001900000006 R_X86_64_GLOB_DAT 0000000000000000 strcmp@GLIBC_2.2.5 + 0
+000000204f60  001a00000006 R_X86_64_GLOB_DAT 0000000000000000 __gmon_start__ + 0
+000000204f68  001b00000006 R_X86_64_GLOB_DAT 0000000000000000 magic_version + 0
+000000204f70  001c00000006 R_X86_64_GLOB_DAT 0000000000000000 strtol@GLIBC_2.2.5 + 0
+000000204f78  001d00000006 R_X86_64_GLOB_DAT 0000000000000000 magic_check + 0
+000000204f80  001e00000006 R_X86_64_GLOB_DAT 0000000000000000 wcwidth@GLIBC_2.2.5 + 0
+000000204f88  001f00000006 R_X86_64_GLOB_DAT 0000000000000000 fflush@GLIBC_2.2.5 + 0
+000000204f90  002000000006 R_X86_64_GLOB_DAT 0000000000000000 magic_close + 0
+000000204f98  002100000006 R_X86_64_GLOB_DAT 0000000000000000 magic_getpath + 0
+000000204fa0  002200000006 R_X86_64_GLOB_DAT 0000000000000000 setlocale@GLIBC_2.2.5 + 0
+000000204fa8  002300000006 R_X86_64_GLOB_DAT 0000000000000000 __printf_chk@GLIBC_2.3.4 + 0
+000000204fb0  002400000006 R_X86_64_GLOB_DAT 0000000000000000 magic_open + 0
+000000204fb8  002500000006 R_X86_64_GLOB_DAT 0000000000000000 fopen@GLIBC_2.2.5 + 0
+000000204fc0  002600000006 R_X86_64_GLOB_DAT 0000000000000000 _Jv_RegisterClasses + 0
+000000204fc8  002700000006 R_X86_64_GLOB_DAT 0000000000000000 exit@GLIBC_2.2.5 + 0
+000000204fd0  002800000006 R_X86_64_GLOB_DAT 0000000000000000 fwrite@GLIBC_2.2.5 + 0
+000000204fd8  002900000006 R_X86_64_GLOB_DAT 0000000000000000 __fprintf_chk@GLIBC_2.3.4 + 0
+000000204fe0  002a00000006 R_X86_64_GLOB_DAT 0000000000000000 _ITM_registerTMCloneTa + 0
+000000204fe8  002b00000006 R_X86_64_GLOB_DAT 0000000000000000 strerror@GLIBC_2.2.5 + 0
+000000204ff0  002c00000006 R_X86_64_GLOB_DAT 0000000000000000 __cxa_finalize@GLIBC_2.2.5 + 0
+000000204ff8  002d00000006 R_X86_64_GLOB_DAT 0000000000000000 strstr@GLIBC_2.2.5 + 0
+0000002050e0  002e00000005 R_X86_64_COPY     00000000002050e0 stdout@GLIBC_2.2.5 + 0
+0000002050f0  003100000005 R_X86_64_COPY     00000000002050f0 stdin@GLIBC_2.2.5 + 0
+0000002050f8  003500000005 R_X86_64_COPY     00000000002050f8 optind@GLIBC_2.2.5 + 0
+000000205100  003700000005 R_X86_64_COPY     0000000000205100 optarg@GLIBC_2.2.5 + 0
+000000205120  003400000005 R_X86_64_COPY     0000000000205120 stderr@GLIBC_2.2.5 + 0
+
+The decoding of unwind sections for machine type Advanced Micro Devices X86-64 is not currently supported.
+
+Symbol table '.dynsym' contains 56 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND getenv@GLIBC_2.2.5 (2)
+     2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND free@GLIBC_2.2.5 (2)
+     3: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_list
+     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __errno_location@GLIBC_2.2.5 (2)
+     5: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strncmp@GLIBC_2.2.5 (2)
+     6: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+     7: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_compile
+     8: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_load
+     9: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_setparam
+    10: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fclose@GLIBC_2.2.5 (2)
+    11: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strlen@GLIBC_2.2.5 (2)
+    12: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_file
+    13: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __stack_chk_fail@GLIBC_2.4 (3)
+    14: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND getopt_long@GLIBC_2.2.5 (2)
+    15: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND mbrtowc@GLIBC_2.2.5 (2)
+    16: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strchr@GLIBC_2.2.5 (2)
+    17: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND rewind@GLIBC_2.2.5 (2)
+    18: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND _IO_putc@GLIBC_2.2.5 (2)
+    19: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strrchr@GLIBC_2.2.5 (2)
+    20: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fputs@GLIBC_2.2.5 (2)
+    21: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_error
+    22: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fputc@GLIBC_2.2.5 (2)
+    23: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_main@GLIBC_2.2.5 (2)
+    24: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __getdelim@GLIBC_2.2.5 (2)
+    25: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strcmp@GLIBC_2.2.5 (2)
+    26: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+    27: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_version
+    28: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strtol@GLIBC_2.2.5 (2)
+    29: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_check
+    30: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND wcwidth@GLIBC_2.2.5 (2)
+    31: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fflush@GLIBC_2.2.5 (2)
+    32: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_close
+    33: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_getpath
+    34: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND setlocale@GLIBC_2.2.5 (2)
+    35: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __printf_chk@GLIBC_2.3.4 (4)
+    36: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND magic_open
+    37: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fopen@GLIBC_2.2.5 (2)
+    38: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    39: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND exit@GLIBC_2.2.5 (2)
+    40: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND fwrite@GLIBC_2.2.5 (2)
+    41: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __fprintf_chk@GLIBC_2.3.4 (4)
+    42: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+    43: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strerror@GLIBC_2.2.5 (2)
+    44: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND __cxa_finalize@GLIBC_2.2.5 (2)
+    45: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strstr@GLIBC_2.2.5 (2)
+    46: 00000000002050e0     8 OBJECT  GLOBAL DEFAULT   25 stdout@GLIBC_2.2.5 (2)
+    47: 00000000002050d0     0 NOTYPE  GLOBAL DEFAULT   24 _edata
+    48: 0000000000205150     0 NOTYPE  GLOBAL DEFAULT   25 _end
+    49: 00000000002050f0     8 OBJECT  GLOBAL DEFAULT   25 stdin@GLIBC_2.2.5 (2)
+    50: 00000000002050d0     0 NOTYPE  GLOBAL DEFAULT   25 __bss_start
+    51: 00000000000014a0     0 FUNC    GLOBAL DEFAULT   10 _init
+    52: 0000000000205120     8 OBJECT  GLOBAL DEFAULT   25 stderr@GLIBC_2.2.5 (2)
+    53: 00000000002050f8     4 OBJECT  GLOBAL DEFAULT   25 optind@GLIBC_2.2.5 (2)
+    54: 0000000000002b44     0 FUNC    GLOBAL DEFAULT   14 _fini
+    55: 0000000000205100     8 OBJECT  GLOBAL DEFAULT   25 optarg@GLIBC_2.2.5 (2)
+
+Histogram for `.gnu.hash' bucket list length (total of 3 buckets):
+ Length  Number     % of total  Coverage
+      0  0          (  0.0%)
+      1  0          (  0.0%)      0.0%
+      2  0          (  0.0%)      0.0%
+      3  2          ( 66.7%)     60.0%
+      4  1          ( 33.3%)    100.0%
+
+Version symbols section '.gnu.version' contains 56 entries:
+ 地址：0000000000000aa8  Offset: 0x000aa8  Link: 5 (.dynsym)
+  000:   0 (*本地*)       2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   0 (*本地*)    
+  004:   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   0 (*本地*)       0 (*本地*)    
+  008:   0 (*本地*)       0 (*本地*)       2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)
+  00c:   0 (*本地*)       3 (GLIBC_2.4)     2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)
+  010:   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)
+  014:   2 (GLIBC_2.2.5)   0 (*本地*)       2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)
+  018:   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   0 (*本地*)       0 (*本地*)    
+  01c:   2 (GLIBC_2.2.5)   0 (*本地*)       2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)
+  020:   0 (*本地*)       0 (*本地*)       2 (GLIBC_2.2.5)   4 (GLIBC_2.3.4)
+  024:   0 (*本地*)       2 (GLIBC_2.2.5)   0 (*本地*)       2 (GLIBC_2.2.5)
+  028:   2 (GLIBC_2.2.5)   4 (GLIBC_2.3.4)   0 (*本地*)       2 (GLIBC_2.2.5)
+  02c:   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   1 (*全局*)   
+  030:   1 (*全局*)      2 (GLIBC_2.2.5)   1 (*全局*)      1 (*全局*)   
+  034:   2 (GLIBC_2.2.5)   2 (GLIBC_2.2.5)   1 (*全局*)      2 (GLIBC_2.2.5)
+
+Version needs section '.gnu.version_r' contains 1 entries:
+ 地址：0x0000000000000b18  Offset: 0x000b18  Link: 6 (.dynstr)
+  000000: 版本: 1  文件：libc.so.6  计数：3
+  0x0010：名称：GLIBC_2.3.4  标志：无  版本：4
+  0x0020：名称：GLIBC_2.4  标志：无  版本：3
+  0x0030：名称：GLIBC_2.2.5  标志：无  版本：2
+
+Displaying notes found in: .note.ABI-tag
+  所有者             Data size	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 2.6.32
+
+Displaying notes found in: .note.gnu.build-id
+  所有者             Data size	Description
+  GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID bitstring)
+    Build ID: c885b655ca2f93d472d5c97ba21ba9a5ff0903c4
