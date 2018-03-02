@@ -81,4 +81,3 @@ if __name__ == "__main__":
     get_receivers()
     message = get_subject_and_content()
     send_email(message)
-
