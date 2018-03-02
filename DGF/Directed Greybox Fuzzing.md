@@ -15,10 +15,7 @@
 1480 + memcpy(bp, pl, payload);
 ```
 
-> Figure 1: Commit introducing Heartbleed: After reading the
-> payload from the incoming message p (1455-8), it copies
-> payload many bytes from the incoming to the outgoing message. If payload is set to 64kb and the incoming message is
-> one byte long, the sender reveals up to ∼64kb of private data.
+> Figure 1: Commit introducing Heartbleed: After reading the payload from the incoming message p (1455-8), it copies payload many bytes from the incoming to the outgoing message. If payload is set to 64kb and the incoming message is one byte long, the sender reveals up to ∼64kb of private data.
 
 ### Figure 2
 
@@ -52,5 +49,10 @@
 - Directed greybox fuzzing is effectively directed and efficiently complements symbolic execution-based directed fuzzing.
 - directed greybox fuzzing is useful in the domains of patch testing and crash reproduction.
 - GoAFL is an useful path testing tool that effectively exposes vulnerabilities that were recently introduced and incomplete fixes of previously reported vulnerabilities.
-- ​for each target ***t***, KATCH executes the following greedy search: KATCH identifies a seed ***s*** in the regression test suite that is "closest" to ***t***.
+- for each target ***t***, KATCH executes the following greedy search: KATCH identifies a seed ***s*** in the regression test suite that is "closest" to ***t***.
+- GoAFL randomly mutates the provided seeds to generate many new inputs. If a new input increase the code coverage, it is added to the set of seeds to be fuzzed. otherwise, it is discarded.
+- the provided and generated seeds are fuzzed in a continuous loop.
+- the time when GoAFL enters exploitation is specified by the user.
+- DGF retins the efficiency of greybox fuzzing because it does not conduct any program analysis during runtime since all program analysis is conducted at compile-time.
+- ​
 
