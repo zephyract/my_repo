@@ -1,6 +1,5 @@
 " 将一下文件粘贴在 .vimrc 头部
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -100,6 +99,7 @@ function HeaderPython()
     normal o
 endf
 
+autocmd bufNewFile exp.py 0r ~/.vim/tpl2pwn
 autocmd bufnewfile *.py call HeaderPython()
 
 function HeaderShell()
@@ -111,3 +111,4 @@ function HeaderShell()
 endf
 
 autocmd bufnewfile *.sh call HeaderShell()
+
