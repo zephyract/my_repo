@@ -85,3 +85,11 @@
 
 ## Architetecture
 
+![](http://ww1.sinaimg.cn/large/006AWYXBly1fp1tmk7netj30py07kq3o.jpg)
+
+> Architecture: After the Graph Extractor generates the call and control-flow graphs from the source code, the distance calculator computes the basic-block-level target distance for each basic block which is used by the Instrumentor during intrumentation. The instrumented binary informs the Fuzzer not only about coverage but also about the seed distance.
+
+- The GoAFL Graph Extractor(GE) generates the call graph(CG) and the revelent control-flow graphs(CFGs). 
+- **CG nodes are identified by the function signature while CFG nodes are identified by the function signature**
+- **CFG nodes are identified by the source file and line of the first statement of the corresponding basic block**
+- The tarmpoline is a piece of assembly code that is executed after each jump instruction to keep track of the covered control-flow edges.
