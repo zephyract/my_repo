@@ -47,12 +47,41 @@
 2. at runtime, the fuzzer aggregates the distance values of each exercised basic block to compute the seed distance values of each exercised basic block to compute the seed distance as their mean.
 
 - Directed greybox fuzzing is effectively directed and efficiently complements symbolic execution-based directed fuzzing.
+
 - directed greybox fuzzing is useful in the domains of patch testing and crash reproduction.
+
 - GoAFL is an useful path testing tool that effectively exposes vulnerabilities that were recently introduced and incomplete fixes of previously reported vulnerabilities.
+
 - for each target ***t***, KATCH executes the following greedy search: KATCH identifies a seed ***s*** in the regression test suite that is "closest" to ***t***.
+
 - GoAFL randomly mutates the provided seeds to generate many new inputs. If a new input increase the code coverage, it is added to the set of seeds to be fuzzed. otherwise, it is discarded.
+
 - the provided and generated seeds are fuzzed in a continuous loop.
+
 - the time when GoAFL enters exploitation is specified by the user.
+
 - DGF retins the efficiency of greybox fuzzing because it does not conduct any program analysis during runtime since all program analysis is conducted at compile-time.
-- ​
+
+- Black-box fuzzing only requires the program to execute. White-box fuzzing based on symbolic execution requires heavy-weight program analysis and requires heavy-weight program analysis and constraint solving. Greybox fuzzing is placed in-between and used only light-weight instrumentation to glean some program structure.
+
+- WIthout program analysis, greybox fuzzing may be more efficient than white-box fuzzing. 
+
+- With more information about internal structure, it may be more effective than blackbox fuzzing.
+
+- how CGF(Coverage-based fuzzer) works
+
+  ![深度截图_选择区域_20180303151442](../../../../home/m4x/my_repo/DGF/Pics/深度截图_选择区域_20180303151442.png)
+
+  ​
+
+- 马尔科夫链：
+
+  > **马尔可夫链**（英语：Markov chain），又称**离散时间马尔可夫链**（discrete-time Markov chain，缩写为**DTMC**[[1\]](https://zh.wikipedia.org/wiki/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE#cite_note-1)），因俄国数学家[安德烈·马尔可夫](https://zh.wikipedia.org/wiki/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB)（俄语：Андрей Андреевич Марков）得名，为[状态空间](https://zh.wikipedia.org/wiki/%E7%8B%80%E6%85%8B%E7%A9%BA%E9%96%93_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8))中经过从一个状态到另一个状态的转换的[随机过程](https://zh.wikipedia.org/wiki/%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B)。该过程要求具备“无记忆”的性质：下一状态的概率分布只能由当前状态决定，在时间序列中它前面的事件均与之无关。这种特定类型的“无记忆性”称作[马尔可夫性质](https://zh.wikipedia.org/wiki/%E9%A6%AC%E5%8F%AF%E5%A4%AB%E6%80%A7%E8%B3%AA)。马尔科夫链作为实际过程的统计模型具有许多应用。
+
+- Note that the energy is a propery that is local to a state in the Markov chain unlike temperature which is global in simulated annealing.
+
+- In order to compute distance accross functions, we assign a value to each node in the call graph(CG) on function-level and in the intraprocedural control-flow graphs on bacis-block level.
+
+
+## Architetecture
 
