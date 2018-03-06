@@ -18,7 +18,7 @@ apt-get install -y $LLVM_DEP_PACKAGES
 
 # Checkout
 
-$SRC="/home/ubuntu"
+SRC="/home/ubuntu"
 # Use chromium's clang revision
 mkdir $SRC/chromium_tools
 cd $SRC/chromium_tools
