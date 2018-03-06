@@ -19,7 +19,7 @@ apt-get install -y $LLVM_DEP_PACKAGES
 
 # Use chromium's clang revision
 SRC="/home/ubuntu/SRC"
-mkdir $SRC/chromium_tools
+mkdir -p $SRC/chromium_tools
 cd $SRC/chromium_tools
 # git clone https://chromium.googlesource.com/chromium/src/tools/clang
 git clone https://gitee.com/M4x/google-clang.git clang
