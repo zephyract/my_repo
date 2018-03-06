@@ -18,7 +18,7 @@ apt-get install -y $LLVM_DEP_PACKAGES
 # Checkout
 
 # Use chromium's clang revision
-SRC="/home/ubuntu"
+SRC="/home/ubuntu/SRC"
 mkdir $SRC/chromium_tools
 cd $SRC/chromium_tools
 # git clone https://chromium.googlesource.com/chromium/src/tools/clang
@@ -40,7 +40,7 @@ cd $SRC/llvm/projects && git clone https://gitee.com/M4x/libcxx.git
 cd $SRC/llvm/projects && git clone https://gitee.com/M4x/libcxxabi.git
 
 # Build & install
-WORK="/home/ubuntu"
+WORK="/home/ubuntu/WORK"
 mkdir -p $WORK/llvm
 cd $WORK/llvm
 cmake -G "Ninja" \
