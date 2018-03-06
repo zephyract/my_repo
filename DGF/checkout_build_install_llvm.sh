@@ -6,8 +6,7 @@
 #      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# distributed under the License is distributed on an "AS IS" BASIS, # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
@@ -18,8 +17,8 @@ apt-get install -y $LLVM_DEP_PACKAGES
 
 # Checkout
 
-SRC="/home/ubuntu"
 # Use chromium's clang revision
+SRC="/home/ubuntu"
 mkdir $SRC/chromium_tools
 cd $SRC/chromium_tools
 # git clone https://chromium.googlesource.com/chromium/src/tools/clang
@@ -41,6 +40,7 @@ cd $SRC/llvm/projects && git clone https://gitee.com/M4x/libcxx.git
 cd $SRC/llvm/projects && git clone https://gitee.com/M4x/libcxxabi.git
 
 # Build & install
+WORK="/home/ubuntu"
 mkdir -p $WORK/llvm
 cd $WORK/llvm
 cmake -G "Ninja" \
