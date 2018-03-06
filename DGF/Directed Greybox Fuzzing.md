@@ -93,3 +93,8 @@
 - **CG nodes are identified by the function signature while CFG nodes are identified by the function signature**
 - **CFG nodes are identified by the source file and line of the first statement of the corresponding basic block**
 - The tarmpoline is a piece of assembly code that is executed after each jump instruction to keep track of the covered control-flow edges.
+
+## Patch coverage
+
+- for brevity, we call previously uncovered changed basic blocks targets.
+- we analyszed the reason why the remain targets have not been covered. Many were not covered because they exist in unreachable code, e.g, are rechabled only on certain operating systems. Others are due to limitations in our current prototype that we share with KATCH.
