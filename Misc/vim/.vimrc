@@ -7,10 +7,9 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim' "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'ayu-theme/ayu-vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -19,7 +18,8 @@ Plugin 'Valloric/YouCompleteMe'
 " Plugin 'Rykka/riv.vim'
 " Plugin 'sunuslee/vim-plugin-random-colorscheme-picker'
 "Plugin 'klen/python-mode'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'isnowfy/python-vim-instant-markdown'
+" Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
 " Plugin 's3rvac/vim-syntax-retdecdsm'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -85,10 +85,21 @@ let g:ycm_autoclose_preview_window_after_completion=1
 "字符串中也开启补全"
 let g:ycm_complete_in_strings = 1
 set clipboard=unnamed""
-colorscheme myVimTheme
+" colorscheme myVimTheme
 let g:molokai_original = 1
 let g:NERDSpaceDelims = 1
+" IndentLine {{
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+" }}
 let mapleader = "\<Space>"
+set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 " 自动补充文件头
 function HeaderPython()
     call setline(1, "#!/usr/bin/env python")
@@ -99,12 +110,12 @@ function HeaderPython()
     normal o
 endf
 
-autocmd bufNewFile exp.py 0r ~/.vim/tpl2pwn
+autocmd bufNewFile exp.py 0r ~/.vim/tpl4pwn
 autocmd bufnewfile *.py call HeaderPython()
 
 function HeaderShell()
     call setline(1, "#!/usr/bin/env bash")
-    call append(2, "__Auther__ = 'M4x'")
+    call append(1, "set -euxo pipefail")
     normal G
     normal o
     normal o
