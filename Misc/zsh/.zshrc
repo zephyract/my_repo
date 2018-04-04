@@ -61,20 +61,15 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-alias JPK='java -jar /media/m4x/ssd/IS/JPocketKnife/JPK_406.jar'
-alias crc32='python /media/m4x/Storage/Learning/IS/CTF工具/Tools/脚本/CRC32碰撞/crc32/crc32.py'
-alias rsatool='python /media/m4x/Storage/Learning/IS/CTF工具/Tools/编码与密码/密码/RSA/rsatool/rsatool.py'
-alias trid="/media/m4x/Storage/Learning/IS/CTF工具/Tools/文件分析/trid_linux_64/trid"
-alias Stegsolve='java -jar /media/m4x/ssd/IS/StegSolve/Stegsolve.jar'
-alias ZipCenOp='java -jar /media/m4x/ssd/IS/zip伪加密/ZipCenOp.jar'
-alias CTFcrack='java -jar /media/m4x/ssd/IS/CTFcryptoCrack/CTFcrack.jar' 
-alias burpsuite="java -jar /media/m4x/ssd/IS/Brupsuite/BurpHelper.jar"
-alias pdf-parser="python /media/m4x/Storage/Learning/IS/CTF工具/Tools/隐写/PDF隐写/pdf-parser_V0_6_5.py"
-alias pdfid="python /media/m4x/Storage/Learning/IS/CTF工具/Tools/隐写/PDF隐写/pdfid_v0_2_1/pdfid.py"
-alias check="~/pwndbg/check.sh"
-alias pwndbg="~/pwndbg/pwndbg.sh"
-alias gef="~/pwndbg/gef.sh"
-alias peda="~/pwndbg/peda.sh"
-alias pwngdb=/home/m4x/Pwngdb/pwngdb.sh
-alias yafu="/media/m4x/Storage/Learning/IS/CTF工具/Tools/编码与密码/密码/RSA/yafu-1.34/yafu-x64.exe"
+alias JPK='java -jar /run/media/m4x/ssd/IS/JPocketKnife/JPK_406.jar'
+alias crc32='python /run/media/m4x/Storage/Learning/IS/CTF工具/Tools/脚本/CRC32碰撞/crc32/crc32.py'
+alias rsatool='python /run/media/m4x/Storage/Learning/IS/CTF工具/Tools/编码与密码/密码/RSA/rsatool/rsatool.py'
+alias trid="/run/media/m4x/Storage/Learning/IS/CTF工具/Tools/文件分析/trid_linux_64/trid"
+alias Stegsolve='java -jar /run/media/m4x/ssd/IS/StegSolve/Stegsolve.jar'
+alias ZipCenOp='java -jar /run/media/m4x/ssd/IS/zip伪加密/ZipCenOp.jar'
+alias CTFcrack='java -jar /run/media/m4x/ssd/IS/CTFcryptoCrack/CTFcrack.jar' 
+alias burpsuite="java -jar /run/media/m4x/ssd/IS/Brupsuite/BurpHelper.jar"
+alias pdf-parser="python /run/media/m4x/Storage/Learning/IS/CTF工具/Tools/隐写/PDF隐写/pdf-parser_V0_6_5.py"
+alias pdfid="python /run/media/m4x/Storage/Learning/IS/CTF工具/Tools/隐写/PDF隐写/pdfid_v0_2_1/pdfid.py"
+alias check="/usr/share/pwndbg/check.sh"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
